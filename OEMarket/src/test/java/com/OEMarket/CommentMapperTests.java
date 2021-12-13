@@ -32,6 +32,7 @@ public class CommentMapperTests {
 		System.out.println("결과는 : "+result);
 	}
 	
+	/* selectCommentDetail 테스트 2021-12-13 완료 */
 	@Test
 	public void testBySelectCommentDetail() {
 		CommentDTO comment = commentMapper.selectCommentDetail((long) 1);
@@ -47,6 +48,7 @@ public class CommentMapperTests {
 		}
 	}
 	
+	/* updateComment 테스트 2021-12-13 완료 */
 	@Test
 	public void testByUpdateComment() {
 		CommentDTO params = new CommentDTO();
@@ -71,6 +73,7 @@ public class CommentMapperTests {
 		}
 	}
 	
+	/* deleteComment 테스트 2021-12-13 완료 */
 	@Test
 	public void testByDeleteComment() {
 		int result = commentMapper.deleteComment((long) 2);
@@ -90,6 +93,7 @@ public class CommentMapperTests {
 		}
 	}
 	
+	/* selectCommentList 테스트 2021-12-13 완료 */
 	@Test
 	public void testBySelectCommentList() {
 		CommentDTO comment = commentMapper.selectCommentDetail((long) 1);
@@ -116,6 +120,7 @@ public class CommentMapperTests {
 		}
 	}
 	
+	/* selectCommentTotalCount 테스트 2021-12-13 완료 */
 	@Test
 	public void testBySelectCommentTotalCount() {
 		CommentDTO comment = commentMapper.selectCommentDetail((long) 1);

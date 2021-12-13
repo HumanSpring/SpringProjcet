@@ -15,6 +15,21 @@
 		"delete_yn"
 	</sql>
 	
+	<!-- selectCommentList를 위한 columns -->
+	<sql id="commentViewColumns">
+		"comment_no", 
+		"board_no", 
+		"user_no", 
+		"secret_yn", 
+		LPAD('ㄴ', 4*("depth" - 1)) || "content" AS "content", 
+		"parent", 
+		"depth", 
+		"write_date", 
+		"modifier", 
+		"modify_date", 
+		"delete_yn"
+	</sql>
+	
 	<insert id="insertComment" parameterType="CommentDTO">
 		INSERT INTO	"COMMENT" (
 			<include refid="commentColumns" />
@@ -68,14 +83,25 @@
 			
 	</update>
 
-	<!-- 대댓글이 있는 삭제된 댓글은 표시하고 대댓글이 있지 않은 삭제된 댓글은 표시안해주기 -->
 	<select id="selectCommentList" resultType="CommentDTO" parameterType="CommentDTO">
 		SELECT
-			<include refid="commentColumns"/>
+			<include refid="commentViewColumns"/>
 		FROM
 			"COMMENT"
 		WHERE
 			"board_no" = #{boardNo}
+		AND
+			"delete_yn" = 0
+		OR (
+				"delete_yn" = 1
+			AND
+				"comment_no" IN
+				(SELECT 
+					"parent"
+				 FROM 
+				 	"COMMENT"
+				 )
+		)
 		START WITH
 			"depth" = 1
 		CONNECT BY PRIOR
