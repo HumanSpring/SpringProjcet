@@ -112,7 +112,6 @@ public class CommentMapperTests {
 						System.out.println("==================================================================================================================================");
 						System.out.println();
 					} catch (JsonProcessingException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}

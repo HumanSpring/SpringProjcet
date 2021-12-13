@@ -20,6 +20,10 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+/** 
+ * @author 강경모
+ * 2021-12-13
+ */
 @RestController
 public class CommentController {
 

@@ -16,6 +16,7 @@
 	</sql>
 	
 	<!-- selectCommentList를 위한 columns -->
+	<!-- LPAD function은 데이터 왼쪽에 지정된 문자(?)를 추가해줌. 의도한 역할은 계층형 구조를 나타내기 위함. -->
 	<sql id="commentViewColumns">
 		"comment_no", 
 		"board_no", 
@@ -83,25 +84,19 @@
 			
 	</update>
 
+	<!-- 입력된 게시글의 댓글을 불러오는 쿼리 삭제되지 않았거나(delete_yn = 0) 
+	삭제되었다면(delete_yn = 1) 자기자신(comment_no)을 부모(parent)로 참조하는 댓글이 없다면 출력하지 않고 
+	참조하는 댓글이 있다면 출력함. -->
 	<select id="selectCommentList" resultType="CommentDTO" parameterType="CommentDTO">
 		SELECT
 			<include refid="commentViewColumns"/>
-		FROM
-			"COMMENT"
-		WHERE
-			"board_no" = #{boardNo}
-		AND
-			"delete_yn" = 0
-		OR (
-				"delete_yn" = 1
-			AND
-				"comment_no" IN
-				(SELECT 
-					"parent"
-				 FROM 
-				 	"COMMENT"
-				 )
-		)
+		FROM "COMMENT"
+		WHERE "board_no" = #{boardNo}
+		AND "delete_yn" = 0
+		OR ("delete_yn" = 1
+			AND "comment_no" 
+			IN (SELECT "parent" FROM "COMMENT")
+			)
 		START WITH
 			"depth" = 1
 		CONNECT BY PRIOR

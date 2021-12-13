@@ -9,6 +9,10 @@ import org.springframework.stereotype.Service;
 import com.OEMarket.dto.CommentDTO;
 import com.OEMarket.mapper.CommentMapper;
 
+/** 
+ * @author 강경모
+ * 2021-12-13
+ */
 @Service
 public class CommentServiceImpl implements CommentService {
 
@@ -40,6 +44,7 @@ public class CommentServiceImpl implements CommentService {
 		List<CommentDTO> commentList = Collections.emptyList();
 
 		int commentTotalCount = commentMapper.selectCommentTotalCount(params);
+		
 		if (commentTotalCount > 0) {
 			commentList = commentMapper.selectCommentList(params);
 		}
