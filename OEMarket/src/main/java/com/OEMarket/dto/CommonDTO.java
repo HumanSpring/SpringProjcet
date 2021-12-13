@@ -1,7 +1,5 @@
 package com.OEMarket.dto;
 
-import java.sql.Date;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,12 +13,12 @@ import lombok.Setter;
 public class CommonDTO {
 	
 	/* 등록일 */
-	private Date writeDate;
+	private String writeDate;
 	
 	/* 수정자 */
 	private String modifier;
 	
 	/* 수정일 */
-	private Date modifyDate;
+	private String modifyDate;
 	
 }

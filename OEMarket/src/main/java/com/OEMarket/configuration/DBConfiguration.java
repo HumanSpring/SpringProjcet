@@ -44,6 +44,7 @@ public class DBConfiguration {
 		factoryBean.setMapperLocations(applicationContext.getResources("classpath:/mappers/**/*Mapper.xml"));
 		factoryBean.setTypeAliasesPackage("com.OEMarket.dto");
 		factoryBean.setConfiguration(mybatisConfig());
+		
 		return factoryBean.getObject();
 	}
 	

@@ -1,7 +1,5 @@
 package com.OEMarket.dto;
 
-import java.sql.Date;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,13 +32,13 @@ public class UserDTO {
 	private String userIconName;
 	
 	/* 회원가입날짜 */
-	private Date signupDate;
+	private String signupDate;
 	
 	/* 회원탈퇴여부 */
 	private String signoutYn;
 	
 	/* 회원탈퇴날짜 */
-	private Date signoutDate;
+	private String signoutDate;
 	
 	/* 관리자 */
 	private String manager;

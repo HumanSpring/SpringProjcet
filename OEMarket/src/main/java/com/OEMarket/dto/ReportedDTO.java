@@ -1,7 +1,5 @@
 package com.OEMarket.dto;
 
-import java.sql.Date;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,7 +17,7 @@ public class ReportedDTO {
 	private Long userNo;
 	
 	/* 신고 날짜 */
-	private Date writeDate;
+	private String writeDate;
 	
 	/* 신고 내용 */
 	private String content;
