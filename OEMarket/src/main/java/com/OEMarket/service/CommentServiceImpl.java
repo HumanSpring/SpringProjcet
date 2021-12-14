@@ -21,8 +21,27 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public boolean registerComment(CommentDTO params) {
-		// TODO => Mapper에서 대댓글과 댓글을 구분해서 입력하는 쿼리가 완성되면 Service구현
-		return false;
+		
+		int result = 0;
+		
+		//  parent가 null이면 부모댓글 없음 -> 댓글로 입력, null이 아니면 부모댓글이 있음 -> 대댓글로 입력
+		boolean isRoot = params.getParent() == null;
+		
+		if(isRoot) {
+			if(params.getCommentNo() == null) {
+				result = commentMapper.insertComment(params);
+			} else {
+				result = commentMapper.updateComment(params);
+			}
+		} else {
+			if(params.getCommentNo() == null) {
+				result = commentMapper.insertReplyComment(params);
+			} else {
+				result = commentMapper.updateComment(params);
+			}
+		}
+		
+		return (result == 1) ? true : false;
 	}
 
 	@Override

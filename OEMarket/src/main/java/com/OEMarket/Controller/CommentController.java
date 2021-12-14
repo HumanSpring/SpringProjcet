@@ -20,9 +20,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-/** 
- * @author 강경모
- * 2021-12-13
+/**
+ * @author 강경모 2021-12-13
  */
 @RestController
 public class CommentController {
@@ -30,14 +29,27 @@ public class CommentController {
 	@Autowired
 	private CommentService commentService;
 
-	// TODO -> 댓글과 대댓글을 구분하며 insert하는 쿼리 작성 후 구현 예정
-//	@RequestMapping(value = { "/comments", "/comments/{commentNo}" }, method = { RequestMethod.POST,
-//			RequestMethod.PATCH })
-//	public JsonObject registerComment(@PathVariable(value = "commentNo", required = false) Long commentNo,
-//			@RequestBody final CommentDTO params) {
-//		
-//		return null;
-//	}
+	@RequestMapping(value = { "/comments", "/comments/{commentNo}" }, method = { RequestMethod.POST,
+			RequestMethod.PATCH })
+	public JsonObject registerComment(@PathVariable(value = "commentNo", required = false) Long commentNo,
+			@RequestBody final CommentDTO params) {
+
+		JsonObject jsonObj = new JsonObject();
+
+		try {
+			if (commentNo != null) {
+				params.setCommentNo(commentNo);
+			}
+
+			boolean isRegistered = commentService.registerComment(params);
+			jsonObj.addProperty("result", isRegistered);
+		} catch (DataAccessException e) {
+			jsonObj.addProperty("message", "데이터베이스 처리 과정에 문제가 발생하였습니다.");
+		} catch (Exception e) {
+			jsonObj.addProperty("message", "시스템에 문제가 발생하였습니다.");
+		}
+		return jsonObj;
+	}
 
 	@GetMapping(value = "/comments/{boardNo}")
 	public JsonObject getCommentList(@PathVariable("boardNo") Long boardNo,
@@ -60,6 +72,7 @@ public class CommentController {
 		try {
 			boolean isDeleted = commentService.deleteComment(commentNo);
 			jsonObj.addProperty("result", isDeleted);
+			
 		} catch (DataAccessException e) {
 			jsonObj.addProperty("message", "데이터베이스 처리 과정에 문제가 발생하였습니다.");
 		} catch (Exception e) {

@@ -13,8 +13,9 @@ import com.OEMarket.dto.CommentDTO;
 @Mapper
 public interface CommentMapper {
 
-	// TODO -> 현재는 대댓글이 아닌 댓글만 insert가능 2021-12-13
 	public int insertComment(CommentDTO params);
+	
+	public int insertReplyComment(CommentDTO params);
 	
 	public CommentDTO selectCommentDetail(Long idx);
 

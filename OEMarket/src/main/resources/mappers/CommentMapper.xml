@@ -41,10 +41,28 @@
 			#{userNo}, 
 			NVL(#{secretYn}, 0),
 			#{content}, 
-			#{parent},  
-			#{depth}, 
+			NULL,  
+			1, 
 			SYSDATE, 
 			NULL, 
+			NULL, 
+			0
+		)
+	</insert>
+	
+	<insert id="insertReplyComment" parameterType="CommentDTO">
+		INSERT INTO "COMMENT" (
+			<include refid="commentColumns" />
+		) VALUES(
+			comment_no_seq.nextval, 
+			#{boardNo}, 
+			#{userNo}, 
+			NVL(#{secretYn}, 0), 
+			#{content},
+			#{parent}, 
+			#{depth}, 
+			SYSDATE, 
+			NULL,
 			NULL, 
 			0
 		)
