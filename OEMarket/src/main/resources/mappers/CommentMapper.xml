@@ -39,14 +39,14 @@
 			comment_no_seq.nextval, 
 			#{boardNo}, 
 			#{userNo}, 
-			NVL(#{secretYn}, 0),
+			NVL(#{secretYn}, 'N'),
 			#{content}, 
 			NULL,  
 			1, 
 			SYSDATE, 
 			NULL, 
 			NULL, 
-			0
+			'N'
 		)
 	</insert>
 	
@@ -57,14 +57,14 @@
 			comment_no_seq.nextval, 
 			#{boardNo}, 
 			#{userNo}, 
-			NVL(#{secretYn}, 0), 
+			NVL(#{secretYn}, 'N'), 
 			#{content},
 			#{parent}, 
 			#{depth}, 
 			SYSDATE, 
 			NULL,
 			NULL, 
-			0
+			'N'
 		)
 	</insert>
 	
@@ -76,7 +76,7 @@
 		WHERE
 			"comment_no" = #{commentNo}
 		AND
-			"delete_yn" = 0
+			"delete_yn" = 'N'
 	</select>
 
 	<update id="updateComment" parameterType="CommentDTO">
@@ -94,7 +94,7 @@
 		UPDATE
 			"COMMENT"
 		SET
-			"delete_yn" = 1, 
+			"delete_yn" = 'Y', 
 			"modify_date" = SYSDATE, 
 			"modifier" = #{modifier}
 		WHERE
@@ -102,16 +102,16 @@
 			
 	</update>
 
-	<!-- 입력된 게시글의 댓글을 불러오는 쿼리 삭제되지 않았거나(delete_yn = 0) 
-	삭제되었다면(delete_yn = 1) 자기자신(comment_no)을 부모(parent)로 참조하는 댓글이 없다면 출력하지 않고 
+	<!-- 입력된 게시글의 댓글을 불러오는 쿼리 삭제되지 않았거나(delete_yn = 'N') 
+	삭제되었다면(delete_yn = 'Y') 자기자신(comment_no)을 부모(parent)로 참조하는 댓글이 없다면 출력하지 않고 
 	참조하는 댓글이 있다면 출력함. -->
 	<select id="selectCommentList" resultType="CommentDTO" parameterType="CommentDTO">
 		SELECT
 			<include refid="commentViewColumns"/>
 		FROM "COMMENT"
 		WHERE "board_no" = #{boardNo}
-		AND "delete_yn" = 0
-		OR ("delete_yn" = 1
+		AND "delete_yn" = 'N'
+		OR ("delete_yn" = 'Y'
 			AND "comment_no" 
 			IN (SELECT "parent" FROM "COMMENT")
 			)
@@ -127,7 +127,7 @@
 		FROM
 			"COMMENT"
 		WHERE
-			"delete_yn" = 0
+			"delete_yn" = 'N'
 		AND
 			"board_no" = #{boardNo}
 	</select>

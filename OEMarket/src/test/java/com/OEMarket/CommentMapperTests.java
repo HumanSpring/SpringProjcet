@@ -17,7 +17,7 @@ public class CommentMapperTests {
 
 	@Autowired
 	private CommentMapper commentMapper;
-	
+
 	/* insertComment 테스트 2021-12-14 완료 */
 	@Test
 	public void testByInsertComment() {
@@ -42,7 +42,7 @@ public class CommentMapperTests {
 		params.setContent("mapper에서 입력한 대댓글");
 		params.setParent((long) 25);
 		params.setDepth(2);
-		
+
 		int result = commentMapper.insertReplyComment(params);
 
 		System.out.println("결과는 : " + result);
@@ -62,6 +62,18 @@ public class CommentMapperTests {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Test
+	public void testByUpdateComment2() {
+		CommentDTO comment = commentMapper.selectCommentDetail((long) 1);
+
+		comment.setContent("1번 댓글을 수정합니다.");
+		comment.setModifier("comment1 modifier");
+
+		int result = commentMapper.updateComment(comment);
+
+		System.out.println("결과는 : " + result);
 	}
 
 	/* updateComment 테스트 2021-12-13 완료 */

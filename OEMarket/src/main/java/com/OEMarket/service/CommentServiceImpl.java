@@ -51,7 +51,7 @@ public class CommentServiceImpl implements CommentService {
 		CommentDTO comment = commentMapper.selectCommentDetail(idx);
 
 		// 0 = false, 1 = true
-		if (comment != null && "0".equals(comment.getDeleteYn())) {
+		if (comment != null && "N".equals(comment.getDeleteYn())) {
 			queryResult = commentMapper.deleteComment(idx);
 		}
 
