@@ -28,9 +28,6 @@ public class CommentDTO extends CommonDTO{
 	/* 대댓글 여부 */
 	private int depth;
 	
-	/* 댓글 순서 */
-	private int sequence;
-	
 	/* 삭제여부 */
 	private String deleteYn;
 	
