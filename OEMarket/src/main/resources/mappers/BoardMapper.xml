@@ -28,7 +28,7 @@
 			board_no_seq.nextval
 			, #{userNo}
 			, #{title}
-			, #{categoryNo}
+			, #{categoryNo} 
 			, 0
 			, #{price}
 			, #{content}
@@ -36,7 +36,7 @@
 			, sysdate
 			, NULL
 			, NULL
-			, NVL(#deleteYn}, 'N')
+			, 'N'
 			, NVL(#{noticeYn}, 'N')
 			
 		)
@@ -80,7 +80,7 @@
 		FROM
 			BOARD
 		WHERE
-			"delete_yn" = '0'
+			"delete_yn" = 'N'
 		ORDER BY
 			"notice_yn" ASC,
 			"board_no" DESC,
@@ -93,7 +93,7 @@
 		FROM
 			BOARD
 		WHERE
-			"delete_yn" = '0'
+			"delete_yn" = 'N'
 	</select>
 
 </mapper>

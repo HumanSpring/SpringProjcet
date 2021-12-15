@@ -22,11 +22,10 @@ public class MapperTests {
 	public void testOfInsert() {
 		BoardDTO params = new BoardDTO();
 		params.setUserNo((long) 1);
-		params.setTitle("27번 게시글 제목");
-		params.setCategoryNo((long) 1);
+		params.setTitle("290번 게시글 제목");
+		params.setCategoryNo((long)21);
 		params.setPrice(50000);
 		params.setContent("27번 게시글 내용");
-		params.setNoticeYn("0");
 
 		int result = boardMapper.insertBoard(params);
 		System.out.println("결과는 " + result + "입니다.");
