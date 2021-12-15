@@ -36,7 +36,7 @@
 			, sysdate
 			, NULL
 			, NULL
-			, 0
+			, NVL(#deleteYn}, 'N')
 			, NVL(#{noticeYn}, 'N')
 			
 		)
@@ -80,7 +80,7 @@
 		FROM
 			BOARD
 		WHERE
-			"delete_yn" = 'N'
+			"delete_yn" = '0'
 		ORDER BY
 			"notice_yn" ASC,
 			"board_no" DESC,
@@ -93,7 +93,7 @@
 		FROM
 			BOARD
 		WHERE
-			"delete_yn" = 'N'
+			"delete_yn" = '0'
 	</select>
 
 </mapper>
