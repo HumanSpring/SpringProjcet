@@ -20,7 +20,7 @@ public class BoardController {
 	private BoardService boardService;
 
 	// 인덱스
-	@GetMapping(value ="home" )
+	@GetMapping(value ="index.do" )
 	public String mainControll() {
 		return "index";
 	}
