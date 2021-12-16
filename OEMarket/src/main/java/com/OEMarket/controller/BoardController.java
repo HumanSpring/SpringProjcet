@@ -1,5 +1,7 @@
 package com.OEMarket.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,12 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 
+	// 인덱스
+	@GetMapping(value ="home" )
+	public String mainControll() {
+		return "index";
+	}
+	
 	// 쓰기
 	@GetMapping(value = "/board/write.do")
 	public String openBoardWrite(@RequestParam(value = "boardNo", required = false) Long boardNo, Model model) {
@@ -51,4 +59,31 @@ public class BoardController {
 		return "redirect:/board/list.do";
 	}
 	
+	// 리스트
+	@GetMapping(value = "/board/list.do")
+	public String openBoardList(Model model) {
+		List<BoardDTO> boardList = boardService.getBoardList();
+		model.addAttribute("boardList", boardList);
+
+		return "board/list";
+	}
+	
+	// 게시글 조회
+	@GetMapping(value = "/board/view.do")
+	public String openBoardDetail(@RequestParam(value = "boardNo", required = false) Long boardNo, Model model) {
+		if (boardNo == null) {
+			// TODO => 올바르지 않은 접근이라는 메시지를 전달하고, 게시글 리스트로 리다이렉트
+			return "redirect:/board/list.do";
+		}
+
+		BoardDTO board = boardService.getBoardDetail(boardNo);
+		if (board == null || "Y".equals(board.getDeleteYn())) {
+			// TODO => 없는 게시글이거나, 이미 삭제된 게시글이라는 메시지를 전달하고, 게시글 리스트로 리다이렉트
+			return "redirect:/board/list.do";
+		}
+		model.addAttribute("board", board);
+
+		return "board/view";
+	}
+
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="board/layout/basic">
+
 <th:block layout:fragment="title">
 	<title>글쓰기 화면</title>
 </th:block>
@@ -46,9 +47,9 @@
 			</div>
 
 			<div class="form-group">
-				<label for="userNo" class="col-sm-2 control-label">이름</label>
+				<label for="userNo" class="col-sm-2 control-label">작성자</label>
 				<div class="col-sm-10">
-					<input type="text" th:field="*{userNo}" class="form-control" placeholder="이름을 입력해 주세요." />
+					<input type="text" th:field="*{userNo}" class="form-control" placeholder="작성자를 입력해 주세요." />
 				</div>
 			</div>
 

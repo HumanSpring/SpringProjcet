@@ -82,9 +82,9 @@
 		WHERE
 			"delete_yn" = 'N'
 		ORDER BY
-			"notice_yn" ASC,
 			"board_no" DESC,
-			"write_date" DESC
+			"write_date" DESC,
+			"view_count" DESC
 	</select>
 
 	<select id="selectBoardTotalCount" parameterType="BoardDTO" resultType="int">
