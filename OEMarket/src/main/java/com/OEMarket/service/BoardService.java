@@ -4,6 +4,12 @@ import java.util.List;
 
 import com.OEMarket.dto.BoardDTO;
 
+/* 
+ * 게시판
+ * 2021. 12. 14.
+ * Jenny (secrethappy@naver.com)
+ */
+
 public interface BoardService {
 	public boolean registerBoard(BoardDTO params);
 

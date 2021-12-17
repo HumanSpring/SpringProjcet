@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+<!--  
+ * 공지사항
+ * 2021. 12. 17.
+ * Jenny (secrethappy@naver.com)
+ -->
+
 <!-- BoardMapper 인터페이스의 경로 지정 / 네임스페이스는 XML Mapper의 SQL 쿼리 문과 Mapper 인터페이스의 메서드를 매핑하기 위해 지정하는 속성 -->
 <mapper namespace="com.OEMarket.mapper.NoticeMapper">
 

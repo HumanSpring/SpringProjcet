@@ -4,6 +4,12 @@ import java.util.List;
 
 import com.OEMarket.dto.BoardDTO;
 
+/* 
+ * 공지사항
+ * 2021. 12. 17.
+ * Jenny (secrethappy@naver.com)
+ */
+
 public interface NoticeMapper {
 	public int insertNotice(BoardDTO params);
 

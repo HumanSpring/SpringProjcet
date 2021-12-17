@@ -6,6 +6,12 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.OEMarket.dto.BoardDTO;
 
+/* 
+ * 게시판
+ * 2021. 12. 14.
+ * Jenny (secrethappy@naver.com)
+ */
+
 @Mapper
 public interface BoardMapper {
 	public int insertBoard(BoardDTO params);

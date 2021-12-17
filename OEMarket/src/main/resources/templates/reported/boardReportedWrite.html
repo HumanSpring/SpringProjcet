@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<!--  
+ * 게시판 신고
+ * 2021. 12. 18.
+ * Jenny (secrethappy@naver.com)
+ -->
+
+<!-- 타이틀 -->
+<th:block layout:fragment="title">
+	<title>게시물 신고</title>
+</th:block>
+
+<body>
+	<th:block layout:fragment="content">
+		<div class="card-content container">
+			<form class="form-horizontal" th:action="@{/reported/boardReportedRegister.do}" th:object="${boardReported}" method="post" onsubmit="return registerBoardReported(this)">
+				<!--/* update의 경우 서버로 전달할 게시글 번호 (PK) */-->
+				<input type="hidden" th:if="*{reportedNo != null and reportedNo > 0}" th:field="*{reportedNo}" />
+				<input type="hidden" th:field="*{boardNo}" />
+
+				<div class="form-group">
+					<label for="userNo" class="col-sm-2 control-label">작성자</label>
+					<div class="col-sm-10">
+						<input type="text" th:field="*{userNo}" class="form-control" placeholder="작성자를 입력해 주세요." />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="content" class="col-sm-2 control-label">내용</label>
+					<div class="col-sm-10">
+						<textarea th:field="*{content}" class="form-control" placeholder="내용을 입력해 주세요."></textarea>
+					</div>
+				</div>
+				
+				<!-- 
+				<div class="form-group">
+					<label for="content" class="col-sm-2 control-label">댓글 신고</label>
+					<div class="col-sm-10">
+						<select th:field="*{content}" name="*{content}" class="form-control">
+							<option for="*{content}" value="">카테고리 선택</option>
+							<option value="디지털/가전">디지털/가전</option>
+							<option value="22">패션/잡화</option>
+							<option value="23">스포츠</option>
+							<option value="24">뷰티/미용</option>
+
+						</select>
+					</div>
+				</div>  -->
+
+
+				<div class="btn_wrap text-center">
+					<button type="submit" class="btn btn-primary waves-effect waves-light">신고하기</button>
+				</div>
+			</form>
+		</div>
+		<!-- /.card-content -->
+	</th:block>
+
+	<th:block layout:fragment="script">
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+
+			function registerBoardReported(form) {
+
+				var result = (isValid(form.userNo, "작성자", null, null) && isValid(
+						form.content, "내용", null, null));
+
+				if (result == false) {
+					return false;
+				}
+			}
+			/*[- end of function -]*/
+
+			/*]]>*/
+		</script>
+	</th:block>
+</body>
+</html>

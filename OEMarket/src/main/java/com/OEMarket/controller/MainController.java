@@ -3,6 +3,12 @@ package com.OEMarket.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+/* 
+ * 메인
+ * 2021. 12. 14.
+ * Jenny (secrethappy@naver.com)
+ */
+
 @Controller
 public class MainController {
 	// 인덱스

@@ -9,6 +9,12 @@ import org.springframework.stereotype.Service;
 import com.OEMarket.dto.BoardDTO;
 import com.OEMarket.mapper.NoticeMapper;
 
+/* 
+ * 공지사항
+ * 2021. 12. 17.
+ * Jenny (secrethappy@naver.com)
+ */
+
 @Service
 public class NoticeServiceImpl implements NoticeService {
 	@Autowired

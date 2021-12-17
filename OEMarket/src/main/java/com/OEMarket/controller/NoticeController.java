@@ -13,6 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.OEMarket.dto.BoardDTO;
 import com.OEMarket.service.NoticeService;
 
+/* 
+ * 공지사항
+ * 2021. 12. 17.
+ * Jenny (secrethappy@naver.com)
+ */
 
 @Controller
 public class NoticeController {

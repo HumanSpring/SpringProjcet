@@ -13,6 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.OEMarket.dto.BoardDTO;
 import com.OEMarket.service.BoardService;
 
+/* 
+ * 게시판
+ * 2021. 12. 14.
+ * Jenny (secrethappy@naver.com)
+ */
 
 @Controller // 사용자의 요청과 응답을 처리, UI를 담당하는 컨트롤러 클래스
 public class BoardController {

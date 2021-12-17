@@ -9,6 +9,12 @@ import org.springframework.stereotype.Service;
 import com.OEMarket.dto.BoardDTO;
 import com.OEMarket.mapper.BoardMapper;
 
+/* 
+ * 게시판
+ * 2021. 12. 14.
+ * Jenny (secrethappy@naver.com)
+ */
+
 @Service // 비즈니스 로직 담당하는 서비스 클래스
 public class BoardServiceImpl implements BoardService {
 
