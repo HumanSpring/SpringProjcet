@@ -11,37 +11,36 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.OEMarket.dto.BoardDTO;
-import com.OEMarket.service.BoardService;
+import com.OEMarket.service.NoticeService;
 
 
-@Controller // 사용자의 요청과 응답을 처리, UI를 담당하는 컨트롤러 클래스
-public class BoardController {
+@Controller
+public class NoticeController {
 	@Autowired
-	private BoardService boardService;
+	private NoticeService noticeService;
 
 
-	
 	// 쓰기
-	@GetMapping(value = "/board/write.do")
-	public String openBoardWrite(@RequestParam(value = "boardNo", required = false) Long boardNo, Model model) {
+	@GetMapping(value = "/notice/write.do")
+	public String openNoticeWrite(@RequestParam(value = "boardNo", required = false) Long boardNo, Model model) {
 		if (boardNo == null) {
-			model.addAttribute("board", new BoardDTO());
+			model.addAttribute("notice", new BoardDTO());
 		} else {
-			BoardDTO board = boardService.getBoardDetail(boardNo);
-			if (board == null) {
-				return "redirect:/board/list.do";
+			BoardDTO notice = noticeService.getNoticeDetail(boardNo);
+			if (notice == null) {
+				return "redirect:/notice/list.do";
 			}
-			model.addAttribute("board", board);
+			model.addAttribute("notice", notice);
 		}
 
-		return "board/write";
+		return "notice/write";
 	}
 	
 	// 게시글 등록
-	@PostMapping(value = "/board/register.do")
-	public String registerBoard(final BoardDTO params) {
+	@PostMapping(value = "/notice/register.do")
+	public String registerNotice(final BoardDTO params) {
 		try {
-			boolean isRegistered = boardService.registerBoard(params);
+			boolean isRegistered = noticeService.registerNotice(params);
 			if (isRegistered == false) {
 				// TODO => 게시글 등록에 실패하였다는 메시지를 전달
 			}
@@ -52,46 +51,46 @@ public class BoardController {
 			// TODO => 시스템에 문제가 발생하였다는 메시지를 전달
 		}
 
-		return "redirect:/board/list.do";
+		return "redirect:/notice/list.do";
 	}
 	
 	// 리스트
-	@GetMapping(value = "/board/list.do")
-	public String openBoardList(Model model) {
-		List<BoardDTO> boardList = boardService.getBoardList();
-		model.addAttribute("boardList", boardList);
+	@GetMapping(value = "/notice/list.do")
+	public String openNoticeList(Model model) {
+		List<BoardDTO> noticeList = noticeService.getNoticeList();
+		model.addAttribute("noticeList", noticeList);
 
-		return "board/list";
+		return "notice/list";
 	}
 	
 	// 게시글 조회
-	@GetMapping(value = "/board/view.do")
-	public String openBoardDetail(@RequestParam(value = "boardNo", required = false) Long boardNo, Model model) {
+	@GetMapping(value = "/notice/view.do")
+	public String openNoticeDetail(@RequestParam(value = "boardNo", required = false) Long boardNo, Model model) {
 		if (boardNo == null) {
 			// TODO => 올바르지 않은 접근이라는 메시지를 전달하고, 게시글 리스트로 리다이렉트
-			return "redirect:/board/list.do";
+			return "redirect:/notice/list.do";
 		}
 
-		BoardDTO board = boardService.getBoardDetail(boardNo);
-		if (board == null || "Y".equals(board.getDeleteYn())) {
+		BoardDTO notice = noticeService.getNoticeDetail(boardNo);
+		if (notice == null || "Y".equals(notice.getDeleteYn())) {
 			// TODO => 없는 게시글이거나, 이미 삭제된 게시글이라는 메시지를 전달하고, 게시글 리스트로 리다이렉트
-			return "redirect:/board/list.do";
+			return "redirect:/notice/list.do";
 		}
-		model.addAttribute("board", board);
+		model.addAttribute("notice", notice);
 
-		return "board/view";
+		return "notice/view";
 	}
 	
 	// 삭제
-	@PostMapping(value = "/board/delete.do")
-	public String deleteBoard(@RequestParam(value = "boardNo", required = false) Long boardNo) {
+	@PostMapping(value = "/notice/delete.do")
+	public String deleteNotice(@RequestParam(value = "boardNo", required = false) Long boardNo) {
 		if (boardNo == null) {
 			// TODO => 올바르지 않은 접근이라는 메시지를 전달하고, 게시글 리스트로 리다이렉트
 			return "redirect:list.do";
 		}
 
 		try {
-			boolean isDeleted = boardService.deleteBoard(boardNo);
+			boolean isDeleted = noticeService.deleteNotice(boardNo);
 			if (isDeleted == false) {
 				// TODO => 게시글 삭제에 실패하였다는 메시지를 전달
 			}
@@ -104,5 +103,4 @@ public class BoardController {
 
 		return "redirect:list.do";
 	}
-
 }
