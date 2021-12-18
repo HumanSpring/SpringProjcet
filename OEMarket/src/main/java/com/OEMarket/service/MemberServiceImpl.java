@@ -39,14 +39,14 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int nickCheck(String nickname) throws Exception {
-		int result = memberRepository.nickCheck(nickname);
+	public int nickCheck(String nickName) throws Exception {
+		int result = memberRepository.nickCheck(nickName);
 		return result;
 	}
 
 	@Override
-	public int phoneCheck(String phone_number) throws Exception {
-		int result = memberRepository.phoneCheck(phone_number);
+	public int phoneCheck(String phone) throws Exception {
+		int result = memberRepository.phoneCheck(phone);
 		return result;
 	}
 

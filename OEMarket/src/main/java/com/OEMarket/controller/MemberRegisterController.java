@@ -31,24 +31,23 @@ public class MemberRegisterController {
 
 	@ResponseBody
 	@RequestMapping(value = "/nickCheck", method = RequestMethod.POST)
-	public int nickCheck(String nickname) throws Exception {
-		int result = memberService.nickCheck(nickname);
+	public int nickCheck(String nickName) throws Exception {
+		int result = memberService.nickCheck(nickName);
 		return result;
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "/phoneCheck", method = RequestMethod.POST)
-	public int phoneCheck(String phone_number) throws Exception {
-		int result = memberService.phoneCheck(phone_number);
+	public int phoneCheck(String phone) throws Exception {
+		int result = memberService.phoneCheck(phone);
 		return result;
 	}
 
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
-	public String registerPOST(MemberDTO memberDTO, String email, String nickname, String phone_number)
-			throws Exception {
+	public String registerPOST(MemberDTO memberDTO, String email, String nickName, String phone) throws Exception {
 		int emailResult = memberService.emailCheck(email);
-		int nickResult = memberService.nickCheck(nickname);
-		int phoneResult = memberService.phoneCheck(phone_number);
+		int nickResult = memberService.nickCheck(nickName);
+		int phoneResult = memberService.phoneCheck(phone);
 
 		try {
 			if (emailResult == 1 || nickResult == 1 || phoneResult == 1) {

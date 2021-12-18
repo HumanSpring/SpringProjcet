@@ -4,7 +4,8 @@
 
 <!--  가입  -->
 <insert id="register">
-    INSERT INTO member (id, email, password, name, nickName, gender, phone, user_Icon, member_Role, signout_Yn, signup_Date, signout_Date)
+    INSERT INTO MEMBER (id, email, password, name, nickname, gender, phone, user_icon, signup_date, signout_yn ,signout_date, member_role)
+    VALUES (#{id}, #{email}, #{password}, #{name}, #{nickname}, #{gender}, #{phone}, #{user_icon}, #{signup_date}, #{signout_yn}, #{signout_date}, #{member_role})
 </insert>
 
 </mapper>

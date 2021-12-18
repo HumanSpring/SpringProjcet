@@ -3,8 +3,6 @@ package com.OEMarket.dto;
 import java.sql.Date;
 import java.time.LocalDateTime;
 
-import com.OEMarket.entity.MemberEntity;
-
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -52,12 +50,6 @@ public class MemberDTO {
 
 	/* 회원탈퇴날짜 */
 	private Date signout_Date;
-
-	public MemberEntity toEntity() {
-		return MemberEntity.builder().id(id).email(email).password(password).name(name).nickName(nickName)
-				.gender(gender).phone(phone).user_Icon(user_Icon).member_Role(member_Role).signout_Yn(signout_Yn)
-				.build();
-	}
 
 	@Builder
 	public MemberDTO(Long id, String email, String password, String name, String nickName, String gender, String phone,

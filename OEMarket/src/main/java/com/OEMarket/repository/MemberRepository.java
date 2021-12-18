@@ -12,9 +12,9 @@ public interface MemberRepository {
 
 	int emailCheck(String email) throws Exception;
 
-	int nickCheck(String nickname) throws Exception;
+	int nickCheck(String nickName) throws Exception;
 
-	int phoneCheck(String phone_number) throws Exception;
+	int phoneCheck(String phone) throws Exception;
 
 	// 로그인
 	Map<String, String> login(MemberDTO memberDTO);
