@@ -1,21 +1,20 @@
-package com.OEMarket.dto;
+package com.OEMarket.entity;
 
 import java.sql.Date;
 import java.time.LocalDateTime;
 
-import com.OEMarket.entity.MemberEntity;
+import javax.persistence.PrePersist;
+import javax.persistence.Table;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Setter
-@ToString
-@NoArgsConstructor
-public class MemberDTO {
+@Table(name = "member")
+public class MemberEntity {
 
 	/* 회원 번호(PK) */
 	private Long id;
@@ -53,15 +52,9 @@ public class MemberDTO {
 	/* 회원탈퇴날짜 */
 	private Date signout_Date;
 
-	public MemberEntity toEntity() {
-		return MemberEntity.builder().id(id).email(email).password(password).name(name).nickName(nickName)
-				.gender(gender).phone(phone).user_Icon(user_Icon).member_Role(member_Role).signout_Yn(signout_Yn)
-				.build();
-	}
-
 	@Builder
-	public MemberDTO(Long id, String email, String password, String name, String nickName, String gender, String phone,
-			String user_Icon, String member_Role, String signout_Yn) {
+	public MemberEntity(Long id, String email, String password, String name, String nickName, String gender,
+			String phone, String user_Icon, String member_Role, String signout_Yn) {
 
 		this.id = id;
 		this.email = email;
@@ -73,5 +66,10 @@ public class MemberDTO {
 		this.user_Icon = user_Icon;
 		this.member_Role = member_Role;
 		this.signout_Yn = signout_Yn;
+	}
+
+	@PrePersist
+	public void signDate() {
+		this.signup_Date = LocalDateTime.now();
 	}
 }

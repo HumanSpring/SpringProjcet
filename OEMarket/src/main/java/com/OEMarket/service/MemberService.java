@@ -1,11 +1,11 @@
-package com.OEMarket.repository;
+package com.OEMarket.service;
 
 import java.util.List;
 import java.util.Map;
 
 import com.OEMarket.dto.MemberDTO;
 
-public interface MemberRepository {
+public interface MemberService {
 
 	// 가입
 	void register(MemberDTO memberDTO) throws Exception;
@@ -17,7 +17,7 @@ public interface MemberRepository {
 	int phoneCheck(String phone_number) throws Exception;
 
 	// 로그인
-	Map<String, String> login(MemberDTO memberDTO);
+	Map<String, String> login(MemberDTO memberDTO) throws Exception;
 
 	// 관리자
 	List<Map<String, Object>> memberList(Integer member_page);
@@ -25,4 +25,5 @@ public interface MemberRepository {
 	Double getTotal();
 
 	int disableMember(Map<String, String> disable);
+
 }
