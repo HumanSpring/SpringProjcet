@@ -7,5 +7,28 @@
     INSERT INTO MEMBER (id, email, password, name, nickname, gender, phone, user_icon, signup_date, signout_yn ,signout_date, member_role)
     VALUES (#{id}, #{email}, #{password}, #{name}, #{nickname}, #{gender}, #{phone}, #{user_icon}, #{signup_date}, #{signout_yn}, #{signout_date}, #{member_role})
 </insert>
+<select id="emailCheck" parameterType="com.OEMarket.dto.MemberDTO" resultType="int">
+    SELECT COUNT(*)
+    FROM MEMBER
+    WHERE email = #{email}
+</select>
+<select id="nickCheck" parameterType="com.OEMarket.dto.MemberDTO" resultType="int">
+    SELECT COUNT(*)
+    FROM MEMBER
+    WHERE nickname = #{nickname}
+</select>
+<select id="phoneCheck" parameterType="com.OEMarket.dto.MemberDTO" resultType="int">
+    SELECT COUNT(*)
+    FROM MEMBER
+    WHERE phone = #{phone}
+</select>
+
+<!--  로그인  -->
+<select id="login" parameterType="com.OEMarket.dto.MemberDTO" resultType="java.util.HashMap">
+    SELECT *
+    FORM MEMBER
+    WHERE email = #{email}
+</select>
+
 
 </mapper>
