@@ -20,7 +20,7 @@
 		) VALUES (
 		reported_no_seq.nextval
 		, 1
-		, 1
+		, null
 		, #{userNo}
 		, sysdate
 		, #{content}

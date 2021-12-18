@@ -69,23 +69,39 @@
 
 
 
-						<!--  -->
 						<p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</p>
-						<div class="d-flex">
-							<button class="btn btn-outline-dark flex-shrink-0" type="button">
-								<i class="bi-cart-fill me-1"></i> 찜♥
-							</button>
-							<button class="btn btn-outline-dark flex-shrink-0" type="button">
-							<a href="#" th:href="@{/reported/boardReportedWrite.do}" class="float-end" onclick="window.open(this.href, '_blank', 'width=가로사이즈px,height=세로사이즈px,toolbars=no,scrollbars=no'); return false;"> 신고 </a>
+
+
+
+
+
+						<div class="d-grid gap-2 d-md-block ">
+							<!-- 찜 -->
+							<button class="btn btn-danger col-sm-3" type="button">찜</button>
+							<!-- 신고 -->
+							<button class="btn btn-secondary col-sm-3" type="button">
+								<a href="#" th:href="@{/reported/boardReportedWrite.do}" onclick="window.open(this.href, '_blank', 'width=500px,height=400px,toolbars=no,scrollbars=no'); return false;" class="boardViewUrl"> 신고 </a>
 							</button>
 						</div>
+
+
+
 					</div>
 				</div>
 			</div>
+
+			<!-- 내용 -->
+			<div class="form-group container px-4 px-lg-5 my-5">
+				<label for="inp-type-5" class="col-sm-2 control-label"><br> <b></b>
+					<h2>상품 상세 정보</h2> </b></label>
+				<div class="col-sm-12 ">
+					<p class="form-control boardViewContent" th:text="*{content}"></p>
+				</div>
+			</div>
+
+
+
 		</section>
-
-
-
 
 
 
@@ -139,12 +155,11 @@
 </th:block>
 
 <!-- 삭제 영역 -->
-<th:block layout:fragment="script">
+<th:block layout:fragment="add-script">
 	<script th:inline="javascript">
 		/*<![CDATA[*/
 
 		function deleteBoard(boardNo) {
-
 			if (confirm(boardNo + "번 게시글을 삭제할까요?")) {
 				var uri = /*[[ @{delete.do} ]]*/null;
 				var html = "";
@@ -157,6 +172,7 @@
 				document.dataForm.submit();
 			}
 		}
+
 		/*[- end of function -]*/
 
 		/*]]>*/
