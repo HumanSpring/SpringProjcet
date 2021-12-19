@@ -1,5 +1,7 @@
 package com.OEMarket.dto;
 
+import java.util.Date;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,7 +19,7 @@ public class ReportedDTO extends CommentDTO {
 	private Long userNo;
 	
 	/* 신고 날짜 */
-	private String writeDate;
+	private Date writeDate;
 	
 	/* 신고 내용 */
 	private String content;
