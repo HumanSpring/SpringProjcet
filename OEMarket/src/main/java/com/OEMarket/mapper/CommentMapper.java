@@ -17,7 +17,7 @@ public interface CommentMapper {
 	
 	public int insertReplyComment(CommentDTO params);
 	
-	public CommentDTO selectCommentDetail(Long idx);
+	public CommentDTO selectCommentDetail(Long commentNo);
 
 	// TODO -> 회원기능과 합쳐지면 modifier가 로그인한 회원이 입력될수 있게끔 수정 예정 2021-12-13
 	public int updateComment(CommentDTO params);
