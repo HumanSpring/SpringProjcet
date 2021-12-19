@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="common/layout/defaultLayout">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="common/layout/defaultLayout" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <!-- 타이틀 -->
 <th:block layout:fragment="title">
@@ -18,17 +18,17 @@
 						<div class="card shadow-lg">
 							<div class="card-body p-5">
 								<h1 class="fs-4 card-title fw-bold mb-4">로그인</h1>
-								<form method="POST" class="needs-validation" novalidate="" autocomplete="off">
+								<form method="POST" class="needs-validation" th:action="@{/login_proc}" autocomplete="off">
 									<div class="mb-3">
-										<label class="mb-2 text-muted" for="email">이메일</label>
+										<label class="mb-2 text-muted" th:for="email">이메일</label>
 										<a href="#" th:href="@{/account/find_id.do}" class="float-end" > 아이디 찾기 </a>
-										<input id="email" type="email" class="form-control" name="email" value="" required autofocus>
+										<input id="email" type="email" class="form-control" name="email" required autofocus>
 										<div class="invalid-feedback">잘못된 이메일을 입력하였습니다.</div>
 									</div>
 
 									<div class="mb-3">
 										<div class="mb-2 w-100">
-											<label class="text-muted" for="password">비밀번호</label>
+											<label class="text-muted" th:for="password">비밀번호</label>
 											<a href="#" th:href="@{/account/find_pw.do}" class="float-end"> 비밀번호 찾기 </a>
 										</div>
 										<input id="password" type="password" class="form-control" name="password" required>
@@ -44,7 +44,7 @@
 							<div class="card-footer py-3 border-0">
 								<div class="text-center">
 									아직 회원이 아니십니까?
-									<a href="#" th:href="@{/account/join.do}" class="text-dark">가입하기</a>
+									<a th:href="@{/account/join.do}" class="text-dark">가입하기</a>
 								</div>
 							</div>
 						</div>

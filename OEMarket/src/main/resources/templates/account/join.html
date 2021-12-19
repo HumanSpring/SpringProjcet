@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="common/layout/defaultLayout">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" layout:decorate="common/layout/defaultLayout">
 
 <!-- 타이틀 -->
 <th:block layout:fragment="title">
@@ -17,35 +17,63 @@
 							<div class="card-body p-5">
 								<h1 class="fs-4 card-title fw-bold mb-4">회원가입</h1>
 								<!-- start form tag -->
-								<form method="POST" class="needs-validation" novalidate="" autocomplete="off">
-
+								<form role="form" th:action="@{/account/join.do}" th:object="${memberForm}" method="POST" class="needs-validation" autocomplete="off">
+									<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
 									<div class="mb-3">
-										<label class="mb-2 text-muted" for="email">아이디</label>
-										<input id="email" type="email" class="form-control" name="email" placeholder="이메일을 입력해주세요" value="" required autofocus>
+										<label class="mb-2 text-muted" th:for="email">이메일</label>
+										<input id="email" type="email" class="form-control" name="email" th:field="*{email}" placeholder="이메일을 입력해주세요" required autofocus>
 										<div class="invalid-feedback">Email is invalid</div>
 									</div>
 									<!-- 비밀번호 -->
 									<div class="mb-3">
-										<label class="mb-2 text-muted" for="password">비밀번호</label>
-										<input id="password" type="password" class="form-control" name="password" required>
+										<label class="mb-2 text-muted" th:for="password">비밀번호</label>
+										<input id="password" type="password" class="form-control" name="password" th:field="*{password}" required>
 										<div class="invalid-feedback">Password is required</div>
 									</div>
 
 									<!-- 비밀번호 재입력 -->
 									<div class="mb-3">
-										<label class="mb-2 text-muted" for="password">비밀번호 확인</label>
+										<label class="mb-2 text-muted" th:for="password">비밀번호 확인</label>
 										<input id="password" type="password" class="form-control" name="password" required>
 										<div class="invalid-feedback">Password is required</div>
 									</div>
 
 									<!-- 이름 -->
 									<div class="mb-3">
-										<label class="mb-2 text-muted" for="name">이름</label>
-										<input id="name" type="text" class="form-control" name="name" value="" required >
+										<label class="mb-2 text-muted" th:for="name">이름</label>
+										<input id="name" type="text" class="form-control" name="name" th:field="*{name}" required >
 										<div class="invalid-feedback">Name is required</div>
 									</div>
-
+									
+									<!-- 닉네임 -->
+									<div class="mb-3">
+										<label class="mb-2 text-muted" th:for="nickname">닉네임</label>
+										<input id="nickname" type="text" class="form-control" name="nickname" th:field="*{nickname}" required >
+										<div class="invalid-feedback">Nickname is required</div>
+									</div>
+									
+									<!-- 전화번호 -->
+									<div class="mb-3">
+										<label class="mb-2 text-muted" th:for="phone">전화번호</label>
+										<input id="phone" type="number" class="form-control" name="phone" th:field="*{phone}" required >
+										<div class="invalid-feedback">Phone is required</div>
+									</div>
+									
+									<!-- 회원아이콘 -->
+									<div class="mb-3">
+										<label class="mb-2 text-muted" th:for="userIcon">회원아이콘</label>
+										<input id="userIcon" type="text" class="form-control" name="userIcon" th:field="*{userIcon}" placeholder="회원아이콘 어떻게 처리할지 생각해주세요." required >
+										<div class="invalid-feedback">UserIcon is required</div>
+									</div>
+									
+									<!-- 성별 -->
+									<div class="mb-3">
+										<label class="mb-2 text-muted" th:for="gender">성별</label>
+										<input id="gender" type="text" class="form-control" name="gender" th:field="*{gender}" required >
+										<div class="invalid-feedback">Gender is required</div>
+									</div>
+									
 									<p class="form-text text-muted mb-3">By registering you agree with our terms and condition.</p>
 
 									<div class="align-items-center d-flex">
