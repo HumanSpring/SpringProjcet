@@ -57,7 +57,8 @@ public class BoardReportedController {
 			// TODO => 시스템에 문제가 발생하였다는 메시지를 전달
 		}
 
-		return "redirect:/reported/boardReportedview.do";
+		 return "redirect:/reported/boardReportedview.do";
+	
 	}
 		
 		// 리스트
