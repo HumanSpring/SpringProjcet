@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ReportedDTO {
+public class ReportedDTO extends CommentDTO {
 
 	/* 신고 번호 (PK) */
 	private Long reportedNo;
