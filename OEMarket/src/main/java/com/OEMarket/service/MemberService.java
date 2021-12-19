@@ -1,29 +1,26 @@
 package com.OEMarket.service;
 
-import java.util.List;
-import java.util.Map;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.OEMarket.dto.MemberDTO;
+import com.OEMarket.domain.Member;
+import com.OEMarket.dto.MemberForm;
+import com.OEMarket.repository.MemberRepository;
 
-public interface MemberService {
+import lombok.RequiredArgsConstructor;
 
-	// 가입
-	void register(MemberDTO memberDTO) throws Exception;
+@Service
+@Transactional(readOnly = true)
+@RequiredArgsConstructor
+public class MemberService {
 
-	int emailCheck(String email) throws Exception;
-
-	int nickCheck(String nickName) throws Exception;
-
-	int phoneCheck(String phone) throws Exception;
-
-	// 로그인
-	Map<String, String> login(MemberDTO memberDTO) throws Exception;
-
-	// 관리자
-	List<Map<String, Object>> memberList(Integer member_page);
-
-	Double getTotal();
-
-	int disableMember(Map<String, String> disable);
-
+	private final MemberRepository memberRepository;
+	
+	@Transactional
+	public Long createMember(MemberForm form) {
+		Member member = form.toEntity();
+		memberRepository.save(member);
+		return member.getId();
+	}
+	
 }

@@ -1,28 +1,13 @@
 package com.OEMarket.repository;
 
-import java.util.List;
-import java.util.Map;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import com.OEMarket.dto.MemberDTO;
+import com.OEMarket.domain.Member;
 
-public interface MemberRepository {
+@Repository
+public interface MemberRepository extends JpaRepository<Member, Long> {
 
-	// 가입
-	void register(MemberDTO memberDTO) throws Exception;
+	public Member findByEmail(String email);
 
-	int emailCheck(String email) throws Exception;
-
-	int nickCheck(String nickName) throws Exception;
-
-	int phoneCheck(String phone) throws Exception;
-
-	// 로그인
-	Map<String, String> login(MemberDTO memberDTO);
-
-	// 관리자
-	List<Map<String, Object>> memberList(Integer member_page);
-
-	Double getTotal();
-
-	int disableMember(Map<String, String> disable);
 }
