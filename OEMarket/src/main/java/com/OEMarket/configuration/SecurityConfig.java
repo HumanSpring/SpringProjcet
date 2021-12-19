@@ -58,10 +58,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //				.anyRequest().authenticated()
 			.and()
 				.formLogin()
-				.loginPage("/login")
+				.loginPage("/account/login.do")
 				.loginProcessingUrl("/login_proc")
-				.defaultSuccessUrl("/")
-				.permitAll();
+				.defaultSuccessUrl("/index.do")
+				.permitAll()
+			.and()
+				.csrf()		// 이거로 403에러 해결
+				.disable();
 	}
 
 	@Override

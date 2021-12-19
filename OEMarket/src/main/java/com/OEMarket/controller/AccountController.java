@@ -58,6 +58,7 @@ public class AccountController {
 		
 		return "redirect:/";
 	}
+	
 	// 비밀번호 찾기
 	@GetMapping(value ="/account/find_pw.do" )
 	public String AccountFindPw() {

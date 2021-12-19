@@ -19,10 +19,11 @@
 							<div class="card-body p-5">
 								<h1 class="fs-4 card-title fw-bold mb-4">로그인</h1>
 								<form method="POST" class="needs-validation" th:action="@{/login_proc}" autocomplete="off">
+									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 									<div class="mb-3">
 										<label class="mb-2 text-muted" th:for="email">이메일</label>
 										<a href="#" th:href="@{/account/find_id.do}" class="float-end" > 아이디 찾기 </a>
-										<input id="email" type="email" class="form-control" name="email" required autofocus>
+										<input id="email" type="email" class="form-control" name="username" required autofocus>
 										<div class="invalid-feedback">잘못된 이메일을 입력하였습니다.</div>
 									</div>
 

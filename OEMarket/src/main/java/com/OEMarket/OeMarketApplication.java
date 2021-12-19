@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @MapperScan(value = { "com.OEMarket.mapper" })
-@EnableJpaRepositories(basePackages = "com.OEMarket.repository")
+@EnableJpaRepositories("com.OEMarket.repository")
 @SpringBootApplication
 public class OeMarketApplication {
 
