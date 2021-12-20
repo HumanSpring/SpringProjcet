@@ -1,59 +1,66 @@
 package com.OEMarket.controller;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.OEMarket.dto.MemberForm;
-import com.OEMarket.service.MemberService;
+import com.OEMarket.dto.LoginFormDTO;
+import com.OEMarket.dto.MemberDTO;
+import com.OEMarket.service.LoginService;
+import com.OEMarket.session.SessionConstants;
 
 import lombok.RequiredArgsConstructor;
 
-@Controller
 @RequiredArgsConstructor
+@Controller
 public class AccountController {
 	
-	private final MemberService memberService;
+	private final LoginService loginService; 
 	
 	// 회원가입
 	@GetMapping(value ="/account/join.do" )
-	public String AccountJoinForm(Model model) {
-		model.addAttribute("memberForm", new MemberForm());
+	public String AccountJoinForm() {
 		return "account/join";
-	}
-	
-	@PostMapping("/account/join.do")
-	public String AccountJoin(@Validated MemberForm form, BindingResult result) {
-		if(result.hasErrors()) {
-			return "account/join";
-		}
-		memberService.createMember(form);
-		
-		return "redirect:/";
 	}
 	
 	// 로그인
 	@GetMapping(value ="/account/login.do" )
-	public String AccountLogin() {
+	public String AccountLogin(@ModelAttribute LoginFormDTO loginForm) {
 		return "account/login";
 	}
 	
-	// 로그아웃
-	@GetMapping("/account/logout.do")
-	public String logout(HttpServletRequest request, HttpServletResponse response) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	@PostMapping("/account/login.do")
+	public String loginAction(@ModelAttribute @Validated LoginFormDTO loginForm, BindingResult bindingResult, @RequestParam(defaultValue = "/") String redirectURL, HttpServletRequest request) {
+		if(bindingResult.hasErrors()) {
+			return "account/login";
+		}
+	
+		MemberDTO loginMember = loginService.login(loginForm.getEmail(), loginForm.getPassword());
+	
+		if(loginMember == null) {
+			bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
+			return "account/login";
+		}
+			
+		HttpSession session = request.getSession();
+		session.setAttribute(SessionConstants.LOGIN_MEMBER, loginMember);
 		
-		if(authentication != null) {
-			new SecurityContextLogoutHandler().logout(request, response, authentication);
+		return "redirect:" + redirectURL;
+	}
+	
+	// 로그아웃
+	@GetMapping("/logout")
+	public String logout(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		if(session != null) {
+			session.invalidate();
 		}
 		
 		return "redirect:/";
