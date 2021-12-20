@@ -14,11 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.OEMarket.dto.LoginFormDTO;
 import com.OEMarket.dto.MemberDTO;
 import com.OEMarket.service.LoginService;
+import com.OEMarket.session.SessionConstants;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @RequiredArgsConstructor
 @Controller
 public class AccountController {
@@ -38,7 +37,7 @@ public class AccountController {
 	}
 	
 	@PostMapping("/account/login.do")
-	public String loginAction(@ModelAttribute @Validated LoginFormDTO loginForm, BindingResult bindingResult, @RequestParam(defaultValue = "/") String redirectURL) {
+	public String loginAction(@ModelAttribute @Validated LoginFormDTO loginForm, BindingResult bindingResult, @RequestParam(defaultValue = "/") String redirectURL, HttpServletRequest request) {
 		if(bindingResult.hasErrors()) {
 			return "account/login";
 		}
@@ -49,10 +48,22 @@ public class AccountController {
 			bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
 			return "account/login";
 		}
-		
-		// 로그인 성공 처리
+			
+		HttpSession session = request.getSession();
+		session.setAttribute(SessionConstants.LOGIN_MEMBER, loginMember);
 		
 		return "redirect:" + redirectURL;
+	}
+	
+	// 로그아웃
+	@GetMapping("/logout")
+	public String logout(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		if(session != null) {
+			session.invalidate();
+		}
+		
+		return "redirect:/";
 	}
 	
 	// 비밀번호 찾기
