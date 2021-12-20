@@ -44,6 +44,7 @@ public class AccountController {
 	// 로그인
 	@GetMapping(value ="/account/login.do" )
 	public String AccountLogin() {
+		System.out.println("로그인 테스트 텍스트");
 		return "account/login";
 	}
 	

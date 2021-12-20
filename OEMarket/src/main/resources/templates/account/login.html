@@ -19,7 +19,6 @@
 							<div class="card-body p-5">
 								<h1 class="fs-4 card-title fw-bold mb-4">로그인</h1>
 								<form method="POST" class="needs-validation" th:action="@{/login_proc}" autocomplete="off">
-									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 									<div class="mb-3">
 										<label class="mb-2 text-muted" th:for="email">이메일</label>
 										<a href="#" th:href="@{/account/find_id.do}" class="float-end" > 아이디 찾기 </a>
