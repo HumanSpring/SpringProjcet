@@ -19,29 +19,27 @@ import lombok.extern.slf4j.Slf4j;
 public class MemberRepository {
 
 	private static Map<Long, MemberDTO> store = new ConcurrentHashMap<Long, MemberDTO>();
-	
-	public MemberDTO save(Long id, MemberDTO member) {	
-		member.setId(id);
+
+	public MemberDTO save(Long userNo, MemberDTO member) {
+		member.setUserNo(userNo);
 		log.info("save : member = {} ", member);
-		store.put(id, member);
-		
+		store.put(userNo, member);
+
 		return member;
 	}
-	
-	public MemberDTO findById(Long id) {
-		return store.get(id);
-	}
-	
-	public Optional<MemberDTO> findByEmail(String email){
-		return this.findAll().stream()
-					.filter(m -> m.getEmail().equals(email))
-					.findFirst();
+
+	public MemberDTO findByUserNo(Long userNo) {
+		return store.get(userNo);
 	}
 
-	public List<MemberDTO> findAll(){
+	public Optional<MemberDTO> findByEmail(String email) {
+		return this.findAll().stream().filter(m -> m.getEmail().equals(email)).findFirst();
+	}
+
+	public List<MemberDTO> findAll() {
 		return new ArrayList<MemberDTO>(store.values());
 	}
-	
+
 	/* 임시 회원 추가 */
 	@PostConstruct
 	public void init() {
@@ -51,17 +49,17 @@ public class MemberRepository {
 		member1.setName("testname01");
 		member1.setNickname("testnickname01");
 		member1.setMemberRole("USER");
-		
+
 		save((long) 1, member1);
-		
+
 		MemberDTO member2 = new MemberDTO();
 		member2.setEmail("testemail02");
 		member2.setPassword("testpassword02");
 		member2.setName("testname02");
 		member2.setNickname("testnickname02");
 		member2.setMemberRole("ADMIN");
-		
+
 		save((long) 2, member2);
 	}
-	
+
 }
