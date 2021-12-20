@@ -53,8 +53,8 @@ public class BoardServiceImpl implements BoardService {
 		return (queryResult == 1) ? true : false;
 	}
 
-	@Override
 	// 삭제되지 않은 전체 게시글 조회
+	@Override
 	public List<BoardDTO> getBoardList() {
 		List<BoardDTO> boardList = Collections.emptyList();
 

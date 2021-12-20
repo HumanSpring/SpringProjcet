@@ -1,18 +1,11 @@
 package com.OEMarket;
 
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.util.CollectionUtils;
 
-import com.OEMarket.dto.BoardDTO;
 import com.OEMarket.dto.ReportedDTO;
-import com.OEMarket.mapper.BoardMapper;
 import com.OEMarket.mapper.BoardReportedMapper;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest
 public class BoardReportedMapperTests {
