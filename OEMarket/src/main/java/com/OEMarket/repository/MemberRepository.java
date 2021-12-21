@@ -20,16 +20,16 @@ public class MemberRepository {
 
 	private static Map<Long, MemberDTO> store = new ConcurrentHashMap<Long, MemberDTO>();
 	
-	public MemberDTO save(Long id, MemberDTO member) {	
-		member.setId(id);
+	public MemberDTO save(Long userNo, MemberDTO member) {	
+		member.setUserNo(userNo);
 		log.info("save : member = {} ", member);
-		store.put(id, member);
+		store.put(userNo, member);
 		
 		return member;
 	}
 	
-	public MemberDTO findById(Long id) {
-		return store.get(id);
+	public MemberDTO findByUserNo(Long userNo) {
+		return store.get(userNo);
 	}
 	
 	public Optional<MemberDTO> findByEmail(String email){

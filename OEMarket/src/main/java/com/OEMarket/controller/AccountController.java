@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +37,7 @@ public class AccountController {
 		return "account/login";
 	}
 	
+	// 로그인 처리
 	@PostMapping("/account/login.do")
 	public String loginAction(@ModelAttribute @Validated LoginFormDTO loginForm, BindingResult bindingResult, @RequestParam(defaultValue = "/") String redirectURL, HttpServletRequest request) {
 		if(bindingResult.hasErrors()) {
@@ -54,6 +56,7 @@ public class AccountController {
 		
 		return "redirect:" + redirectURL;
 	}
+	
 	
 	// 로그아웃
 	@GetMapping("/logout")

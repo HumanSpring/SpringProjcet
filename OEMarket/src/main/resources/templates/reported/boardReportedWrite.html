@@ -6,6 +6,7 @@
  * 2021. 12. 18.
  * Jenny (secrethappy@naver.com)
  -->
+ 
 <head th:replace="common/fragments/header :: header">
 
 <th:block layout:fragment="title">
@@ -32,7 +33,11 @@
 
 				<div class="mb-3">
 					<label for="userNo" class="form-label"><b>신고자</b></label>
-					<input type="text" th:field="*{userNo}" class="form-control" placeholder="신고자 입력" />
+					<!--  <input type="text" th:field="*{userNo}" class="form-control" placeholder="신고자 입력" /> -->
+					 
+					 <input type="text" id="userNo" name="userNo" th:value="${session.loginMember.userNo}" class="form-control" readonly/>
+					
+					
 				</div>
 
 
@@ -67,19 +72,20 @@
 
 
 				<div class="btn_wrap text-center">
-					<button type="submit" class="btn btn-success waves-effect waves-light" >신고하기</button>
+					<button type="submit" class="btn btn-success waves-effect waves-light" onClick="alert('신고되었습니다')">신고하기</button>
 					
 				</div>
 				
-				
-				
+							
 				
 				<!-- 스크립트 작업중
-				onclick="closeButton();"
-							function closeButton() {
+				
+				function closeButton() {
 				alert('신고가 접수되었습니다');
 				window.close();
 			}
+			
+			onclick="closeButton();"
 			
 				 -->
 				

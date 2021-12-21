@@ -57,7 +57,7 @@ public class BoardReportedController {
 			// TODO => 시스템에 문제가 발생하였다는 메시지를 전달
 		}
 
-		 return "redirect:/reported/boardReportedview.do";
+		 return "redirect:/reported/reportedAlert.do";
 	
 	}
 		
@@ -87,5 +87,11 @@ public class BoardReportedController {
 
 			return "reported/boardReportedview";
 		} 
+		
+		// 신고 접수 확인
+			@GetMapping(value ="/reported/reportedAlert.do" )
+			public String boardReportedAlert() {
+				return "reported/reportedAlert";
+			}
 		
 }

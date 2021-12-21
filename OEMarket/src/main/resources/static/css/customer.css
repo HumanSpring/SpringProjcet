@@ -11,3 +11,11 @@
 .boardViewContent {
 	height: 20em;
 }
+
+.reportedButton {
+	display: block;
+}
+
+.viewSubject {
+	text-align: center;
+}
