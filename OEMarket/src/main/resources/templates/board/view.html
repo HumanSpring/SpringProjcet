@@ -116,27 +116,14 @@
 
 			<form class="form-horizontal form-view">
 				<div class="input-group margin-bottom-20">
-					<input type="text" class="form-control" placeholder="">
+					<input type="text" id="content" class="form-control" placeholder="">
 					<div class="input-group-btn">
-						<button type="button" class="btn waves-effect waves-light">
-							<i class="fa fa-commenting" aria-hidden="true"></i>
-						</button>
+						<button th:if="${session.loginMember != null}" type="button" class="btn waves-effect waves-light" th:onclick="insertComment([[${board.boardNo}]], [[${session.loginMember.id}]])">등록</button>
+						<button th:unless="${session.loginMember != null}" type="button" class="btn waves-effect waves-light" th:onclick="insertComment([[${board.boardNo}]], 0)">등록</button>
 					</div>
 					<!-- /.input-group-btn -->
 				</div>
 				<ul class="notice-list">
-					<!-- <li>
-						<span class="name">Betty Simmons</span> <span class="desc">There are new settings available</span> <span class="time">2019.03.26</span>
-						<button type="button" class="btn btn-xs btn-circle">
-							<i class="fa fa-close" aria-hidden="true"></i>
-						</button>
-					</li>
-					<li>
-						<span class="name">Betty Kim</span> <span class="desc">There are new settings available</span> <span class="time">2019.03.15</span>
-						<button type="button" class="btn btn-xs btn-circle">
-							<i class="fa fa-close" aria-hidden="true"></i>
-						</button>
-					</li> -->
 				</ul>
 			</form>
 		</div>
@@ -188,7 +175,7 @@
 						if(comment.deleteYn == "N") {
 							commentsHtml += `
 								<li>
-									<span class="name">${comment.userNo}</span>
+									<span class="name">${comment.memberDTO.nickname}</span>
 									<span class="desc">${comment.content}</span>
 									<span class="time">${moment(comment.writeDate).format('YYYY-MM-DD HH:mm:ss')}</span>
 									<!--<button type="button" class="btn btn-xs btn-circle"><i class="fa fa-close" aria-hidden="true"></i></button> -->
@@ -197,7 +184,6 @@
 						} else {
 							commentsHtml += `
 								<li>
-									<span class="name">${comment.userNo}</span>
 									<span class="desc">삭제된 댓글입니다.</span>
 									<!--<button type="button" class="btn btn-xs btn-circle"><i class="fa fa-close" aria-hidden="true"></i></button> -->
 								</li>
@@ -206,7 +192,6 @@
 					} else {
 						commentsHtml += `
 							<li>
-								<span class="name">${comment.userNo}</span>
 								<span class="desc">비밀댓글입니다.</span>
 								<span class="time">${moment(comment.writeDate).format('YYYY-MM-DD HH:mm:ss')}</span>
 								<!--<button type="button" class="btn btn-xs btn-circle"><i class="fa fa-close" aria-hidden="true"></i></button> -->
@@ -222,6 +207,47 @@
 	}
 	/*[- end of function -]*/
 	/*]]>*/	
+	
+	/* 댓글 입력 */
+	function insertComment(boardNo, memberId) {
+		var content = document.getElementById("content");
+		if (isEmpty(content.value) == true) {
+			content.setAttribute("placeholder", "댓글을 입력해주세요.");
+			content.focus();
+			return false;
+		}
+		
+		if(memberId == 0){
+			alert("로그인을 해주세요.");
+			content.value = "";
+			return false;
+		} else {
+			var uri = /*[[@{/comments}]]*/null;
+			var headers = {"Content-Type": "application/json", "X-HTTP-Method-Override": "POST"};
+			var params = {"boardNo" : boardNo, "content" : content.value, "userNo" :memberId};	/* userNo 일단 1 세션값으로 처리 */	
+		}
+		
+		$.ajax({
+			url: uri,
+			type: "POST", 
+			headers : headers, 
+			dataType : "json", 
+			data: JSON.stringify(params), 
+			success: function(response) {
+				if(response.result == false){
+					alert("댓글 등록에 실패하였습니다.");
+					return false;
+				}
+				
+				printCommentList();
+				content.value = "";
+			}, 
+			error : function(xhr, status, error) {
+				alert("에러가 발생하였습니다.");
+				return false;
+			}
+		});
+	}
 	</script>
 
 </th:block>
