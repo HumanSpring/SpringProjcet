@@ -1,21 +1,16 @@
 package com.OEMarket.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.OEMarket.dto.LoginFormDTO;
 import com.OEMarket.dto.MemberDTO;
+import com.OEMarket.encryption.UserSha256;
 import com.OEMarket.service.LoginService;
 import com.OEMarket.service.MemberServiceImpl;
-import com.OEMarket.session.SessionConstants;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,7 +18,9 @@ import lombok.RequiredArgsConstructor;
 @Controller
 public class AccountController {
 
+	@Autowired
 	private MemberServiceImpl service;
+
 	private final LoginService loginService;
 
 	// 회원가입
@@ -32,46 +29,53 @@ public class AccountController {
 		return "account/join";
 	}
 
+	// 회원가입처리
 	@PostMapping(value = "/account/join.do")
-	public String AccountJoin(MemberDTO memberDTO) {
-		service.memberRegister(memberDTO);
-		return "redirect:/account/login";
+	public String JoinAction(MemberDTO memberDTO) {
+
+		// 비밀번호 암호화
+		String encryPassword = UserSha256.encrypt(memberDTO.getPassword());
+		memberDTO.setPassword(encryPassword);
+
+		service.registerMember(memberDTO);
+		return "redirect:/";
 	}
 
 	// 로그인
 	@GetMapping(value = "/account/login.do")
-	public String AccountLogin(@ModelAttribute LoginFormDTO loginForm) {
+	public String AccountLoginForm() {
 		return "account/login";
 	}
 
-	@PostMapping("/account/login.do")
-	public String loginAction(@ModelAttribute @Validated LoginFormDTO loginForm, BindingResult bindingResult,
-			@RequestParam(defaultValue = "/") String redirectURL, HttpServletRequest request) {
-		if (bindingResult.hasErrors()) {
-			return "account/login";
+	// 로그인 처리
+	@PostMapping(value = "/account/login.do")
+	public String loginAction(HttpSession session, MemberDTO memberDTO) {
+		String returnURL = "/";
+		if (session.getAttribute("loginmember") != null) {
+			// 기존에 login이란 세션 값이 존재한다면 기존값 제거
+			session.removeAttribute("loginmember");
 		}
+		// 로그인이 성공하면 MemberDTO 객체를 반환한다.
+		service.loginMember(memberDTO);
+		System.out.println(memberDTO);
+		// 로그인 성공
 
-		MemberDTO loginMember = loginService.login(loginForm.getEmail(), loginForm.getPassword());
-
-		if (loginMember == null) {
-			bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
-			return "account/login";
+		if (memberDTO != null) {
+			// 세션에 login이라는 이름으로 memberdto 객체 저장
+			session.setAttribute("loginmember", memberDTO);
+			// 로그인 성공시 이동
+			returnURL = "/";
+		} else {
+			// 로그인 실패
+			returnURL = "redirect:/account/login";
 		}
-
-		HttpSession session = request.getSession();
-		session.setAttribute(SessionConstants.LOGIN_MEMBER, loginMember);
-
-		return "redirect:" + redirectURL;
+		return returnURL; // 위에서 설정한 returnURL 을 반환해서 이동시킴
 	}
 
 	// 로그아웃
 	@GetMapping("/logout")
-	public String logout(HttpServletRequest request) {
-		HttpSession session = request.getSession(false);
-		if (session != null) {
-			session.invalidate();
-		}
-
+	public String logout(HttpSession session) {
+		session.invalidate();
 		return "redirect:/";
 	}
 

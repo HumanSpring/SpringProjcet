@@ -1,25 +1,34 @@
 package com.OEMarket.service;
 
-import javax.inject.Inject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import com.OEMarket.dao.MemberDAO;
 import com.OEMarket.dto.MemberDTO;
+import com.OEMarket.mapper.MemberMapper;
 
+@Service
 public class MemberServiceImpl implements MemberService {
 
-	@Inject
-	private MemberDAO memberDAO;
+	@Autowired
+	private MemberMapper memberMapper;
 
 	@Override
-	public void memberRegister(MemberDTO memberDTO) {
+	public boolean registerMember(MemberDTO memberDTO) {
 
-		System.out.println("회원 가입 동작");
-		if (memberDTO == null) {
-
-			return;
+		int queryResult = 0;
+		if (memberDTO.getUserNo() == null) {
+			queryResult = memberMapper.insertMember(memberDTO);
+		} else {
+			queryResult = 0;
 		}
 
-		memberDAO.memberRegister(memberDTO);
+		return (queryResult == 1) ? true : false;
+	}
+
+	@Override
+	public MemberDTO loginMember(MemberDTO memberDTO) {
+
+		return null;
 	}
 
 }

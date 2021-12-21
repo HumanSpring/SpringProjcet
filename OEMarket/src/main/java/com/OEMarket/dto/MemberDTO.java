@@ -27,8 +27,18 @@ public class MemberDTO {
 	private String phone;
 
 	/* 회원 아이콘 */
-	private String user_icon;
+	private String userIcon;
+
+	/* 회원 가입일 */
+	private String signup_date;
+
+	/* 회원 탈퇴여부 */
+	private String signout_yn;
+
+	/* 회원 탈퇴일 */
+	private String signout_date;
 
 	/* 회원 구분 */
 	private String memberRole;
+
 }

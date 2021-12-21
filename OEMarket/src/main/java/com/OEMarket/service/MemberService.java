@@ -4,6 +4,8 @@ import com.OEMarket.dto.MemberDTO;
 
 public interface MemberService {
 
-	public void memberRegister(MemberDTO memberDTO);
+	public boolean registerMember(MemberDTO memberDTO);
+
+	public MemberDTO loginMember(MemberDTO memberDTO);
 
 }

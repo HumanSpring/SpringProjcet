@@ -18,6 +18,7 @@
 						<div class="card shadow-lg">
 							<div class="card-body p-5">
 								<h1 class="fs-4 card-title fw-bold mb-4">로그인</h1>
+								<!-- start form tag -->
 								<form method="POST" class="needs-validation" th:action="@{/account/login.do}" th:object="${loginFormDTO}" autocomplete="off">
 									<div class="mb-3">
 										<label class="mb-2 text-muted" th:for="email">이메일</label>
