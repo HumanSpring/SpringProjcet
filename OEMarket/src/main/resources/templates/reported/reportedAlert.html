@@ -2,7 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <!--  
- * 게시판 신고
+ * 게시판 신고하기 버튼 클릭 후, close 처리
  * 2021. 12. 18.
  * Jenny (secrethappy@naver.com)
  -->
@@ -11,7 +11,7 @@
 
 <!-- 타이틀 -->
 <th:block layout:fragment="title">
-	<title>게시물 신고</title>
+	<title>게시물 신고 완료</title>
 </th:block>
 </head>
 
@@ -32,8 +32,8 @@
 				$("#alertStart").click(function() {
 					Swal.fire({
 						icon : 'success',
-						title : 'Alert가 실행되었습니다.',
-						text : '이곳은 내용이 나타나는 곳입니다.',
+						title : '창 닫기',
+						text : '창 닫기',
 					});
 				});
 				window.close();

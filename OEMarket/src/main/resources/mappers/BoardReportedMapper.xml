@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- * 게시물 신고 * 2021. 12. 18. * Jenny (secrethappy@naver.com) -->
+<!--  
+ * 게시물 신고
+ * 2021. 12. 18.
+ * Jenny (secrethappy@naver.com)
+ -->
 
 <mapper namespace="com.OEMarket.mapper.BoardReportedMapper">
 
@@ -13,20 +17,21 @@
 		, "write_date" <!-- 등록일 -->
 		, "content" <!-- 신고 내용 -->
 	</sql>
-	
+
 	<insert id="insertBoardReported" parameterType="ReportedDTO">
 		INSERT INTO REPORTED (
 		<include refid="boardReportedColumns" />
 		) VALUES (
 		reported_no_seq.nextval
-		, 1
+		, #{boardNo}
 		, null
 		, #{userNo}
-		, sysdate
+		,
+		sysdate
 		, #{content}
 		)
 	</insert>
-	
+
 	<select id="selectBoardReportedDetail" parameterType="long"
 		resultType="ReportedDTO">
 		SELECT
@@ -34,7 +39,7 @@
 		FROM
 		Reported
 		WHERE
-	
+
 		"reported_no" = #{reportedNo}
 	</select>
 
@@ -47,7 +52,8 @@
 		WHERE
 		"reported_no" = #{reportedNo}
 		ORDER BY
-		"reported_no" DESC,
+		"reported_no"
+		DESC,
 	</select>
 
 	<select id="selectBoardReportedTotalCount"

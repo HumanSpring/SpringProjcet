@@ -1,11 +1,11 @@
-.boardListCss  {
-	text-decoration:none;
+.boardListCss {
+	text-decoration: none;
 	color: black;
 }
 
-.boardViewUrl , .boardViewUrl:hover   {
-	text-decoration:none;
-	color:white;
+.boardViewUrl, .boardViewUrl:hover {
+	text-decoration: none;
+	color: white;
 }
 
 .boardViewContent {
@@ -18,4 +18,17 @@
 
 .viewSubject {
 	text-align: center;
+}
+
+body {
+	display: alsolute;
+	bottom: 0;
+}
+
+textarea{
+	width:500px; 
+	height:400px; 
+    resize:none;/* 크기고정 */ 
+/*   resize: horizontal; // 가로크기만 조절가능 
+	resize: vertical;  세로크기만 조절가능  */
 }

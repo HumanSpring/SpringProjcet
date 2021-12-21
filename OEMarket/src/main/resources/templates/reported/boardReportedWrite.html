@@ -27,22 +27,16 @@
 			</div>
 			<form lass="form-horizontal" th:action="@{/reported/boardReportedRegister.do}" th:object="${boardReported}" method="post" onsubmit="return registerBoardReported(this)">
 
-				<!--/* update의 경우 서버로 전달할 게시글 번호 (PK) */-->
 				<input type="hidden" th:if="*{reportedNo != null and reportedNo > 0}" th:field="*{reportedNo}" />
 				<input type="hidden" th:field="*{boardNo}" />
-
+				
+				<!-- 작성자 -->
 				<div class="mb-3">
-					<label for="userNo" class="form-label"><b>신고자</b></label>
-					<!--  <input type="text" th:field="*{userNo}" class="form-control" placeholder="신고자 입력" /> -->
-					 
-					 <input type="text" id="userNo" name="userNo" th:value="${session.loginMember.userNo}" class="form-control" readonly/>
-					
-					
+					<label for="userNo" class="form-label"><b>작성자</b></label>
+					 <input type="text" id="userNo" name="userNo" th:value="${session.loginMember.userNo}" class="form-control" readonly/>				
 				</div>
-
-
-
-
+				
+				<!-- 사유 선택 시작 -->
 				<div class="mb-3 form-group">
 					<label for="content" class="col-sm-2 control-label"><b>사유 선택</b> 
 					<small>(여러 사유에 해당될 경우, 대표적인 사유 1개를 선택해주세요)</small>
@@ -67,31 +61,14 @@
 						<input type="radio" class="form-check-input" id="radio2" th:field="*{content}" name="*{content}" value="음란성 또는 청소년에게 부적합한 내용">
 						음란성 또는 청소년에게 부적합한 내용 <label class="form-check-label" for="*{content}"></label>
 					</div>
-
 				</div>
-
-
+				<!-- 사유 선택 끝 -->
+				
+				<!-- 신고하기 버튼 후 alert 처리 -->
 				<div class="btn_wrap text-center">
 					<button type="submit" class="btn btn-success waves-effect waves-light" onClick="alert('신고되었습니다')">신고하기</button>
-					
 				</div>
-				
-							
-				
-				<!-- 스크립트 작업중
-				
-				function closeButton() {
-				alert('신고가 접수되었습니다');
-				window.close();
-			}
-			
-			onclick="closeButton();"
-			
-				 -->
-				
-
 			</form>
-			<!-- /.card-content -->
 		</section>
 	</th:block>
 
@@ -109,7 +86,6 @@
 					return false;
 				}
 			}
-			
 
 			/*[- end of function -]*/
 

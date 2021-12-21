@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="common/layout/defaultLayout">
 
+<!--  
+ * 게시판 목록
+ * 2021. 12. 16.
+ * Jenny (secrethappy@naver.com)
+ -->
 
+<!-- 타이틀 -->
 <th:block layout:fragment="title">
-	<title>리스트</title>
+	<title>상품 판매 게시판 목록</title>
 </th:block>
 
 <body>
 
-<!-- 검색 영역 -->
-<!-- 
+	<!-- 검색 영역
 <th:block layout:fragment="search">
 	<form action="#" id="searchform-header" class="searchform js__toggle active pull-right">
 		<input type="search" placeholder="Search..." class="input-search">
@@ -19,80 +24,84 @@
 	</form>
 </th:block>  -->
 
-<th:block layout:fragment="content">
 
+	<th:block layout:fragment="content">
 
-	<section class="py-5 container" >
-		<div class="container px-4 px-lg-5 mt-5">
-			<h2>최근 올라온 중고 상품</h2>
-			<br>
-			<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-				<div class="col mb-5" th:if="${not #lists.isEmpty( boardList )}" th:each="row : ${boardList}">
-					<div class="card h-100">
-						<!-- Sale badge-->
-						<div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-						<!-- Product image-->
-						<img class="card-img-top" src="https://images.unsplash.com/photo-1592286927505-1def25115558?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="..." />
-						<!-- Product details-->
-						<div class="card-body p-4">
-							<div class="text-center">
-								<!-- Product name-->
-								<div th:text="${boardNo}"></div>
-								<h5 class="fw-bolder">
-									<a class="boardListCss" th:href="@{view.do( boardNo=${row.boardNo} )}" th:text="${row.title}"></a>
-								</h5>
-								<!-- Product reviews-->
-								<div class="d-flex justify-content-center small text-warning mb-2">
-									<div class="bi-star-fill"></div>
-									<div class="bi-star-fill"></div>
-									<div class="bi-star-fill"></div>
-									<div class="bi-star-fill"></div>
-									<div class="bi-star-fill"></div>
-								</div>
-								<!-- Product price-->
-								<td th:text="${row.price}+'원'"></td>
-							</div>
-						</div>
-						<!-- Product actions-->
-						<div class="card-footer p-4 pt-0 border-top-0 bg-transparent"></div>
+		<!-- 캐러솔 시작 -->
+		<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+			<div class="carousel-inner">
+				<div class="carousel-item active">
+					<img src="/imgs/디지털가전.jpg" class="d-block w-100" alt="...">
+					<div class="carousel-caption d-none d-md-block">
+						<h5>중고 거래는 오이마켓</h5>
+						<br> <br>
 					</div>
 				</div>
 			</div>
 		</div>
+		<!-- 캐러솔 끝 -->
 
+		<!-- 콘텐츠 시작 -->
+		<section class="py-5 container">
+			<div class="container px-4 px-lg-5 mt-5">
+				<h2>최근 올라온 중고 상품</h2>
+				<br>
+				<!-- 상품 상세 목록 부분 -->
+				<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+					<div class="col mb-5" th:if="${not #lists.isEmpty( boardList )}" th:each="row : ${boardList}">
+						<div class="card h-100">
+							<!-- 상품 이미지 -->
+							<img class="card-img-top" src="https://images.unsplash.com/photo-1592286927505-1def25115558?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="..." />
+							<!-- 상품 상세 -->
+							<div class="card-body p-4">
+								<div class="text-center">
+									<!-- 상품 이름 -->
+									<div th:text="${boardNo}"></div>
+									<h5 class="fw-bolder">
+										<a class="boardListCss" th:href="@{view.do( boardNo=${row.boardNo} )}" th:text="${row.title}"></a>
+									</h5>
+									<!-- 상품 가격 -->
+									<td th:text="${row.price}+'원'"></td>
+								</div>
+							</div>
+							<!-- 카드 푸터 -->
+							<div class="card-footer p-4 pt-0 border-top-0 bg-transparent"></div>
+						</div>
+					</div>
+				</div>
+			</div>
 
+			<!-- 글쓰기 버튼 -->
+			<div class="d-grid gap-2 d-lg-flex justify-content-lg-end" th:unless="${session.loginMember == null}">
+				<a th:href="@{write.do}" class="btn btn-success waves-effect waves-right">글쓰기</a>
+			</div>
+			
+		</section>
+		<!-- 콘텐츠 끝 -->
 
-	<!-- 글쓰기 버튼 -->
-
-	<div class="d-grid gap-2 d-lg-flex justify-content-lg-end" th:unless="${session.loginMember == null}">
-		<a th:href="@{write.do}" class="btn btn-success waves-effect waves-right">글쓰기</a>
-	</div>
-	</section>
-
-	<!-- 페이징 처리 -->
-	<th:block layout:fragment="paging">
-		<nav aria-label="Page navigation example">
-			<ul class="pagination justify-content-center">
-				<li class="page-item disabled">
-					<a class="page-link">이전</a>
-				</li>
-				<li class="page-item">
-					<a class="page-link" href="#">1</a>
-				</li>
-				<li class="page-item">
-					<a class="page-link" href="#">2</a>
-				</li>
-				<li class="page-item">
-					<a class="page-link" href="#">3</a>
-				</li>
-				<li class="page-item">
-					<a class="page-link" href="#">다음</a>
-				</li>
-			</ul>
-		</nav>
-		
+		<!-- 페이징 처리 시작 -->
+		<th:block layout:fragment="paging">
+			<nav aria-label="Page navigation example">
+				<ul class="pagination justify-content-center">
+					<li class="page-item disabled">
+						<a class="page-link">이전</a>
+					</li>
+					<li class="page-item">
+						<a class="page-link" href="#">1</a>
+					</li>
+					<li class="page-item">
+						<a class="page-link" href="#">2</a>
+					</li>
+					<li class="page-item">
+						<a class="page-link" href="#">3</a>
+					</li>
+					<li class="page-item">
+						<a class="page-link" href="#">다음</a>
+					</li>
+				</ul>
+			</nav>
+		</th:block>
+		<!-- 페이징 처리 끝 -->
 	</th:block>
-	</div>
-</th:block>
 </body>
 </html>

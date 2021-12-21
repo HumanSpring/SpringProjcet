@@ -1,20 +1,27 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="common/layout/defaultLayout">
 
+<!--  
+ * 게시판 상세 페이지
+ * 2021. 12. 16.
+ * Jenny (secrethappy@naver.com)
+ -->
+
+<!-- 타이틀 -->
 <th:block layout:fragment="title">
-	<title>제품 상세 페이지</title>
+	<title>상품 상세 페이지</title>
 </th:block>
+
 
 <th:block layout:fragment="content">
 	<div class="card-content container">
 
-
-		<!-- 제품 이미지, 정보 부분-->
+		<!-- 콘텐츠 시작-->
 		<section class="py-5 form-horizontal form-view" th:object="${board}">
 			<div class="container px-4 px-lg-5 my-5">
 				<div class="row gx-4 gx-lg-5 align-items-center">
 
-					<!-- 제품 사진 -->
+					<!-- 상품 사진 -->
 					<div class="col-md-6">
 						<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
 							<div class="carousel-inner">
@@ -37,9 +44,9 @@
 						</div>
 					</div>
 
-					<!-- 사진 오른쪽 정보 -->
+					<!-- 상품 사진 오른쪽 내비 시작 -->
 					<div class="col-md-6">
-						<!-- 판매여부 -->
+						<!-- 판매 여부 -->
 						<div class="small mb-1">
 							<!-- <label for="inp-type-1" class="col-sm-2 control-label">판매 상태</label> <span th:text="*{salesStatus}"></span> -->
 							<label for="inp-type-1" class="col-sm-2 control-label">판매 상태</label> <span th:text="판매중"></span>
@@ -47,11 +54,10 @@
 
 						<!-- 상품명 -->
 						<h1 class="display-5 fw-bolder">
-
 							<p th:text="*{title}"></p>
 						</h1>
 
-						<!-- 상품 가격, 판매 유저 -->
+						<!-- 상세 정보 -->
 						<div class="fs-5 mb-5">
 							<div>
 								<span>상품 가격 </span> <span th:text="*{price}+'원'"></span>
@@ -67,28 +73,23 @@
 							</div>
 						</div>
 
-						<!-- <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</p> -->
-
+						<!-- 찜, 신고 -->
 						<div class="d-grid gap-2 d-md-block ">
 							<!-- 찜 -->
 							<button class="btn btn-danger col-sm-3" type="button">찜</button>
 
 							<!-- 신고 -->
-							<button class="btn btn-secondary col-sm-3" type="button">
-								<a href="#" th:href="@{/reported/boardReportedWrite.do}" onclick="window.open(this.href, '_blank','_self', 'width=500px,height=400px,toolbars=no,scrollbars=no'); return false;" class="boardViewUrl reportedButton"> 신고 </a>
+							<button class="btn btn-secondary col-sm-3" type="button" th:unless="${session.loginMember == null}">
+								<a href="#" th:href="@{/reported/boardReportedWrite.do}" onclick="window.open(this.href, '_blank', 'width=500px,height=400px,toolbars=no,scrollbars=no'); return false;" class="boardViewUrl reportedButton"> 신고 </a>
 							</button>
-
-
-
-
-
-
 						</div>
+						<!--찜, 신고 끝 -->
 					</div>
+					<!-- 상품 사진 오른쪽 내비 끝-->
 				</div>
 			</div>
 
-			<!-- 내용 -->
+			<!-- 상품 판매 입력된 내용 시작 -->
 			<div class="form-group container px-4 px-lg-5 my-5">
 				<label for="inp-type-5" class="col-sm-2 control-label"><br> <b></b>
 					<h2>상품 상세 정보</h2> </b></label>
@@ -96,32 +97,24 @@
 					<p class="form-control boardViewContent" th:text="*{content}"></p>
 				</div>
 			</div>
+			<!-- 상품 판매 입력된 내용 끝 -->
 		</section>
-
-		<!-- 뒤로가기 버튼 -->
-
+		<!-- 콘텐츠 끝 -->
 	</div>
 
-
-
+	<!-- 버튼 모음 시작 -->
 	<div class="btn_wrap text-center">
+		<!-- 뒤로가기 버튼 -->
 		<a th:href="@{list.do}" class="btn btn-success waves-effect waves-light">뒤로가기</a>
-		<!-- <a th:href="@{write.do( boardNo=${board.boardNo} )}" th:unless="${session.loginMember == null}" class="btn btn-primary waves-effect waves-light">수정하기</a>
-		<a th:href="@{write.do( boardNo=${board.boardNo} )}" th:if="${session.loginMember.userNo == board.userNo}" class="btn btn-primary waves-effect waves-light">수정하기</a>  -->
-
+		<!-- 수정하기 버튼 -->
 		<a th:href="@{write.do( boardNo=${board.boardNo} )}" th:if="${session.loginMember != null &&  session.loginMember.userNo == board.userNo}" class="btn btn-primary waves-effect waves-light">수정하기</a>
-
+		<!-- 삭제하기 버튼 -->
 		<button type="button" class="btn btn-danger waves-effect waves-light" th:if="${session.loginMember != null &&  session.loginMember.userNo == board.userNo}" th:onclick="deleteBoard([[ ${board.boardNo} ]])">삭제하기</button>
 	</div>
-
-
-
-
-
-	</div>
-	<!-- /.card-content -->
+	<!-- 버튼 모음 끝 -->
 </th:block>
 
+<!-- 댓글 시작 -->
 <th:block layout:fragment="add-content">
 	<div class="box-content container">
 		<div class="card-content">
@@ -159,10 +152,10 @@
 		<!-- /.card-content -->
 	</div>
 	<!-- /.box-content -->
-
 </th:block>
+<!-- 댓글 끝 -->
 
-<!-- 삭제 영역 -->
+<!-- 삭제 스크립트 시작 -->
 <th:block layout:fragment="add-script">
 	<script th:inline="javascript">
 		/*<![CDATA[*/
@@ -185,6 +178,6 @@
 
 		/*]]>*/
 	</script>
-
 </th:block>
+<!-- 삭제 스크립트 끝 -->
 </html>
