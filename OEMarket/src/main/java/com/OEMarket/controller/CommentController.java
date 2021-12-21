@@ -48,6 +48,7 @@ public class CommentController {
 		} catch (Exception e) {
 			jsonObj.addProperty("message", "시스템에 문제가 발생하였습니다.");
 		}
+		
 		return jsonObj;
 	}
 
@@ -58,10 +59,13 @@ public class CommentController {
 		JsonObject jsonObj = new JsonObject();
 
 		List<CommentDTO> commentList = commentService.getCommentList(params);
+		commentList.get(2).getContent().replaceAll("ㄴ", "&nbsp;");
 		if (CollectionUtils.isEmpty(commentList) == false) {
 			JsonArray jsonArr = new Gson().toJsonTree(commentList).getAsJsonArray();
 			jsonObj.add("commentList", jsonArr);
 		}
+		
+		System.out.println(commentList.get(2).getContent());
 		return jsonObj;
 	}
 

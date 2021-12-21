@@ -20,7 +20,7 @@ public class CommentServiceTests {
 	@Test
 	public void testByRegisterComment() {
 //		CommentDTO params = new CommentDTO();
-		CommentDTO comment = commentMapper.selectCommentDetail((long) 50);
+//		CommentDTO comment = commentMapper.selectCommentDetail((long) 50);
 		
 		/* 댓글 등록 테스트 2021-12-14 완료 */
 //		params.setBoardNo((long) 1);
@@ -39,12 +39,23 @@ public class CommentServiceTests {
 //		params.setDepth(2);
 		
 		/* 대댓글 수정 테스트 */
-		comment.setContent("service 수정 대댓글");
-		comment.setModifier("강경모");
+//		comment.setContent("service 수정 대댓글");
+//		comment.setModifier("강경모");
 		
 //		boolean result = commentService.registerComment(params);
-		boolean result = commentService.registerComment(comment);
-		System.out.println("결과는 : " + result);
+//		boolean result = commentService.registerComment(comment);
+//		System.out.println("결과는 : " + result);
+		
+		
+		int number = 19;
+		for(int i = 2; i <= number; i++) {
+			CommentDTO params = new CommentDTO();
+			params.setBoardNo((long) 244);
+			params.setUserNo((long) 1);
+			params.setContent("244번 글의 댓글 테스트 " + i);
+			commentService.registerComment(params);
+		}
+		
 	}
 
 	/* deleteComment 테스트 2021-12-13 완료 */

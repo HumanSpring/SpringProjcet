@@ -111,9 +111,14 @@
 		FROM "COMMENT"
 		WHERE "board_no" = #{boardNo}
 		AND "delete_yn" = 'N'
-		OR ("delete_yn" = 'Y'
-			AND "comment_no" 
-			IN (SELECT "parent" FROM "COMMENT")
+		OR (
+			"board_no" = #{boardNo}
+			AND
+				"delete_yn" = 'Y'
+			AND 
+				"comment_no" 
+			IN 
+				(SELECT "parent" FROM "COMMENT")
 			)
 		START WITH
 			"depth" = 1
