@@ -63,7 +63,7 @@
 								<span>상품 가격 </span> <span th:text="*{#numbers.formatInteger(price, 0, 'COMMA')}+'원'"></span>
 							</div>
 							<div>
-								<span>판매 유저 </span> <span th:text="*{userNo}"></span>
+								<span>판매 유저 </span> <span th:text="*{memberDTO.nickname}"></span>
 							</div>
 							<div>
 								<span>등록 날짜 </span> <span th:text="*{#dates.format( writeDate, 'yyyy-MM-dd' )}"></span>
