@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.OEMarket.dto.MemberDTO;
-import com.OEMarket.encryption.UserSha256;
 
 @SpringBootTest
 class MemberMapperTests {
@@ -30,16 +29,16 @@ class MemberMapperTests {
 		membermapper.insertMember(memberDTO);
 	}
 
-	@Test
-	@DisplayName("로그인 테스트")
-	public void loginMemeberTest() {
-		MemberDTO memberDTO = new MemberDTO();
-		memberDTO.setEmail("messi@naver.com");
-		memberDTO.setPassword("1234");
-		String encryPassword = UserSha256.encrypt(memberDTO.getPassword());
-		memberDTO.setPassword(encryPassword);
-
-		membermapper.login(memberDTO);
-	}
+//	@Test
+//	@DisplayName("로그인 테스트")
+//	public void loginMemeberTest() {
+//		MemberDTO memberDTO = new MemberDTO();
+//		memberDTO.setEmail("messi@naver.com");
+//		memberDTO.setPassword("1234");
+//		String encryPassword = UserSha256.encrypt(memberDTO.getPassword());
+//		memberDTO.setPassword(encryPassword);
+//
+//		membermapper.login(memberDTO);
+//	}
 
 }

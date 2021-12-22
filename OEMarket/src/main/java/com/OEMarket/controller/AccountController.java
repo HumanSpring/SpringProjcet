@@ -1,5 +1,7 @@
 package com.OEMarket.controller;
 
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,10 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.OEMarket.dto.MemberDTO;
 import com.OEMarket.encryption.UserSha256;
-import com.OEMarket.service.MemberServiceImpl;
+import com.OEMarket.service.MemberLoginService;
+import com.OEMarket.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,7 +23,12 @@ import lombok.RequiredArgsConstructor;
 public class AccountController {
 
 	@Autowired
-	private MemberServiceImpl service;
+	private MemberService memberService;
+
+	@Inject
+	private MemberLoginService memberLoginService;
+
+	UserSha256 userSha256 = new UserSha256();
 
 	// 회원가입
 	@GetMapping(value = "/account/join.do")
@@ -32,10 +41,10 @@ public class AccountController {
 	public String JoinAction(MemberDTO memberDTO) {
 
 		// 비밀번호 암호화
-		String encryPassword = UserSha256.encrypt(memberDTO.getPassword());
+		String encryPassword = userSha256.encrypt(memberDTO.getPassword());
 		memberDTO.setPassword(encryPassword);
 
-		service.registerMember(memberDTO);
+		memberService.registerMember(memberDTO);
 		return "redirect:/";
 	}
 
@@ -47,34 +56,31 @@ public class AccountController {
 
 	// 로그인 처리
 	@PostMapping(value = "/account/login.do")
-	public String loginAction(HttpSession session, MemberDTO memberDTO) {
-		String returnURL = "/";
-		if (session.getAttribute("login") != null) {
-			// 기존에 login이란 세션 값이 존재한다면 기존값 제거
-			session.removeAttribute("login");
-		}
-		// 로그인이 성공하면 MemberDTO 객체를 반환한다.
-		MemberDTO vo = service.login(memberDTO);
-		System.out.println(vo);
-		// 로그인 성공
+	public String loginCheck(MemberDTO memberDTO, HttpServletRequest req) {
+		HttpSession session = req.getSession();
 
-		if (vo != null) {
-			// 세션에 login이라는 이름으로 memberVO 객체 저장
-			session.setAttribute("login", vo);
-			// 로그인 성공시 이동
-			returnURL = "/";
+		String encryPassword = userSha256.encrypt(memberDTO.getPassword());
+		memberDTO.setPassword(encryPassword);
+
+		MemberDTO login = memberLoginService.loginCheck(memberDTO);
+
+		if (login == null) {
+			session.setAttribute("loginMember", null);
 		} else {
-			// 로그인 실패
-			returnURL = "redirect:/account/login";
+			session.setAttribute("loginMember", login);
 		}
-		return returnURL; // 위에서 설정한 returnURL 을 반환해서 이동시킴
+		System.out.println("세션아이디 " + session.getAttribute("loginMember"));
+		return "redirect:/";
 	}
 
 	// 로그아웃
 	@GetMapping("/logout")
-	public String logout(HttpSession session) {
-		session.invalidate();
-		return "redirect:/";
+	public ModelAndView logout(HttpSession session) {
+		memberLoginService.logout(session);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("account/login");
+		mav.addObject("message", "logout");
+		return mav;
 	}
 
 	// 비밀번호 찾기

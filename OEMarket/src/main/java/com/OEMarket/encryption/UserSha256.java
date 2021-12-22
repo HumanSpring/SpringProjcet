@@ -4,7 +4,7 @@ import java.security.MessageDigest;
 
 public class UserSha256 {
 
-	public static String encrypt(String planText) {
+	public String encrypt(String planText) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
 			md.update(planText.getBytes());
