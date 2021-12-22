@@ -51,7 +51,7 @@
 				<div class="row mb-3">
 					<label for="price" class="col-sm-2 col-form-label viewSubject"><b>상품 가격</b></label>
 					<div class="col-sm-10">
-						<input type="text" th:field="*{price}" class="form-control" placeholder="가격을 입력해 주세요." />
+						<input type="text" th:field="*{price}" class="form-control" placeholder="가격을 입력해 주세요."  id="commas" onkeyup="commas(this)" />
 					</div>
 				</div>
 
@@ -103,6 +103,30 @@
 					return false;
 				}
 			}
+			
+			// 숫자 3자리 구분
+			function commas(t) {
+
+				// 콤마 빼고 
+				var x = t.value;			
+				x = x.replace(/,/gi, '');
+
+			        // 숫자 정규식 확인
+				var regexp = /^[0-9]*$/;
+				if(!regexp.test(x)){ 
+
+					$(t).val(""); 
+					alert("숫자만 입력 가능합니다.");
+
+				} else {
+					x = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");			
+					$(t).val(x);			
+				}
+			}
+			
+			
+			
+			
 			/*[- end of function -]*/
 
 			/*]]>*/

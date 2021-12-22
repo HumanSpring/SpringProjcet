@@ -61,7 +61,7 @@
 										<a class="boardListCss" th:href="@{view.do( boardNo=${row.boardNo} )}" th:text="${row.title}"></a>
 									</h5>
 									<!-- 상품 가격 -->
-									<td th:text="${row.price}+'원'"></td>
+									<td th:text="${#numbers.formatInteger(row.price, 0, 'COMMA') }+'원'"></td>
 								</div>
 							</div>
 							<!-- 카드 푸터 -->

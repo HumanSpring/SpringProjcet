@@ -20,12 +20,16 @@
 				<input type="hidden" th:if="*{boardNo != null and boardNo > 0}" th:field="*{boardNo}" />
 
 				<!-- 제목 -->
-				<div class="form-group">
-					<label for="title" class="col-sm-2 control-label">제목</label>
+
+				<div class="row mb-3">
+					<label for="title" class="col-sm-2 col-form-label viewSubject"><b>제목</b></label>
 					<div class="col-sm-10">
 						<input type="text" th:field="*{title}" class="form-control" placeholder="제목을 입력해 주세요." />
 					</div>
 				</div>
+
+
+
 
 				<!-- 작성자 관리자로 고정 -->
 				<div class="form-group">
@@ -37,21 +41,24 @@
 				</div>
 
 				<!-- 내용 작성 -->
-				<div class="form-group">
-					<label for="content" class="col-sm-2 control-label">내용</label>
+
+				<div class="row mb-3">
+					<label for="content" class="col-sm-2 col-form-label viewSubject"><b>내용</b></label>
 					<div class="col-sm-10">
 						<textarea th:field="*{content}" class="form-control" placeholder="내용을 입력해 주세요."></textarea>
 					</div>
 				</div>
 
+
 				<!-- 버튼 모음 시작 -->
-				<div class="btn_wrap text-center">
+				<div class="btn_wrap text-center" th:unless="${session.loginMember == null}">
 					<!-- 뒤로가기 버튼 -->
-					<a th:href="@{list.do}" class="btn btn-default waves-effect waves-light">뒤로가기</a>
+					<a th:href="@{list.do}" class="btn btn-success waves-effect waves-light">뒤로가기</a>
 					<!-- 저장하기 버튼 -->
 					<button type="submit" class="btn btn-primary waves-effect waves-light">저장하기</button>
 				</div>
 				<!-- 버튼 모음 끝 -->
+				<br>
 			</form>
 		</div>
 	</th:block>
