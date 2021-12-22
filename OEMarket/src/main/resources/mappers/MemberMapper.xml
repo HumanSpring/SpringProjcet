@@ -41,11 +41,11 @@
 </insert>
 
 <!-- 로그인 -->
-<select id="loginMember" resultType="MemberDTO">
+<select id="login" resultType="MemberDTO">
 	SELECT * FROM MEMBER
 		WHERE
-			email = #{email} and
-			password = #{password}
+			"email" = #{email} and
+			"password" = #{password}
 </select>
 
 

@@ -1,0 +1,13 @@
+.boardListCss  {
+	text-decoration:none;
+	color: black;
+}
+
+.boardViewUrl , .boardViewUrl:hover   {
+	text-decoration:none;
+	color:white;
+}
+
+.boardViewContent {
+	height: 20em;
+}

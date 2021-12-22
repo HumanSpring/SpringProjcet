@@ -6,6 +6,6 @@ public interface MemberService {
 
 	public boolean registerMember(MemberDTO memberDTO);
 
-	public MemberDTO loginMember(MemberDTO memberDTO);
+	public MemberDTO login(MemberDTO memberDTO);
 
 }

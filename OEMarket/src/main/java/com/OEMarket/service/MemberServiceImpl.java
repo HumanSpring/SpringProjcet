@@ -1,5 +1,8 @@
 package com.OEMarket.service;
 
+import javax.inject.Inject;
+
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +14,9 @@ public class MemberServiceImpl implements MemberService {
 
 	@Autowired
 	private MemberMapper memberMapper;
+
+	@Inject
+	private SqlSession session;
 
 	@Override
 	public boolean registerMember(MemberDTO memberDTO) {
@@ -26,9 +32,9 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public MemberDTO loginMember(MemberDTO memberDTO) {
+	public MemberDTO login(MemberDTO memberDTO) {
 
-		return null;
+		return session.selectOne("member.login", memberDTO);
 	}
 
 }
