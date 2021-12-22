@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.OEMarket.dto.MemberDTO;
 import com.OEMarket.encryption.UserSha256;
@@ -75,12 +74,9 @@ public class AccountController {
 
 	// 로그아웃
 	@GetMapping("/logout")
-	public ModelAndView logout(HttpSession session) {
-		memberLoginService.logout(session);
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("account/login");
-		mav.addObject("message", "logout");
-		return mav;
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
 	}
 
 	// 비밀번호 찾기
