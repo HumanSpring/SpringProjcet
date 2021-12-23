@@ -54,10 +54,8 @@
 
 	<insert id="insertBoard" parameterType="BoardDTO">
 		INSERT INTO BOARD (
-		<!-- <include refid="boardColumns" /> -->
-		b.*
-		, m."nickname"
-		, m."member_role"
+		<include refid="boardColumns" />
+
 		) VALUES (
 		board_no_seq.nextval
 		, #{userNo}

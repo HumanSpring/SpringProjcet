@@ -16,6 +16,14 @@
 	<th:block layout:fragment="content">
 		<div class="card-content container">
 			<form class="form-horizontal" th:action="@{/notice/register.do}" th:object="${notice}" method="post" onsubmit="return registerNotice(this)">
+
+				<div class="row mb-3">
+					<label for="title" class="col-sm-2 col-form-label viewSubject"><h3>
+							<b>공지사항 등록</b>
+						</h3></label>
+				</div>
+
+
 				<!-- 게시판 번호 -->
 				<input type="hidden" th:if="*{boardNo != null and boardNo > 0}" th:field="*{boardNo}" />
 
