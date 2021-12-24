@@ -111,22 +111,22 @@ public class BoardMapperTests {
 	@Test
 //	삭제되지 않은 게시물 조회
 	public void testSelectList() {
-		int boardTotalCount = boardMapper.selectBoardTotalCount();
-		if (boardTotalCount > 0) {
-			List<BoardDTO> boardList = boardMapper.selectBoardList();
-			if (CollectionUtils.isEmpty(boardList) == false) {
-				for (BoardDTO board : boardList) {
-					System.out.println("=========================");
-					System.out.println(board.getUserNo());
-					System.out.println(board.getTitle());
-					System.out.println(board.getCategoryNo());
-					System.out.println(board.getPrice());
-					System.out.println(board.getContent());
-					System.out.println(board.getNoticeYn());
-					System.out.println("=========================");
-				}
-			}
-		}
+//		int boardTotalCount = boardMapper.selectBoardTotalCount();
+//		if (boardTotalCount > 0) {
+//			List<BoardDTO> boardList = boardMapper.selectBoardList();
+//			if (CollectionUtils.isEmpty(boardList) == false) {
+//				for (BoardDTO board : boardList) {
+//					System.out.println("=========================");
+//					System.out.println(board.getUserNo());
+//					System.out.println(board.getTitle());
+//					System.out.println(board.getCategoryNo());
+//					System.out.println(board.getPrice());
+//					System.out.println(board.getContent());
+//					System.out.println(board.getNoticeYn());
+//					System.out.println("=========================");
+//				}
+//			}
+//		}
 	}
 	
 	

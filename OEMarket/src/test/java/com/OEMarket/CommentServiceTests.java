@@ -16,35 +16,17 @@ public class CommentServiceTests {
 
 	@Autowired
 	private CommentMapper commentMapper;
-	
+
 	@Test
 	public void testByRegisterComment() {
-//		CommentDTO params = new CommentDTO();
-		CommentDTO comment = commentMapper.selectCommentDetail((long) 50);
-		
-		/* 댓글 등록 테스트 2021-12-14 완료 */
-//		params.setBoardNo((long) 1);
-//		params.setUserNo((long) 2);
-//		params.setContent("service에서 등록한 댓글");
-		
-		/* 댓글 수정 테스트 2021-12-14 완료 */
-//		comment.setContent("service 수정 댓글");
-//		comment.setModifier("강경모");
-		
-		/* 대댓글 등록 테스트 2021-12-14 완료 */
-//		params.setBoardNo((long) 1);
-//		params.setUserNo((long) 2);
-//		params.setContent("service에서 등록한 대댓글2");
-//		params.setParent((long) 42);
-//		params.setDepth(2);
-		
-		/* 대댓글 수정 테스트 */
-		comment.setContent("service 수정 대댓글");
-		comment.setModifier("강경모");
-		
-//		boolean result = commentService.registerComment(params);
+
+		CommentDTO comment = commentMapper.selectCommentDetail((long) 157);
+		comment.setModifier("testnickname01");
+		comment.setContent("157번 댓글을 수정합니다.");
+
 		boolean result = commentService.registerComment(comment);
-		System.out.println("결과는 : " + result);
+		System.out.println("결과는 : " + result + "입니다.");
+
 	}
 
 	/* deleteComment 테스트 2021-12-13 완료 */

@@ -31,4 +31,7 @@ public class CommentDTO extends CommonDTO{
 	/* 삭제여부 */
 	private String deleteYn;
 	
+	/* 유저정보 */
+	private MemberDTO memberDTO;
+	
 }

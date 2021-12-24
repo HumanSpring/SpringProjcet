@@ -17,9 +17,9 @@ public class BoardServiceTests {
 	
 	@Test
 	public void testByGetBoardList() {
-		List<BoardDTO> boardList = boardService.getBoardList();
-		
-		System.out.println(boardList);
+//		List<BoardDTO> boardList = boardService.getBoardList();
+//		
+//		System.out.println(boardList);
 	}
 	
 	@Test

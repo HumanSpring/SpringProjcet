@@ -22,9 +22,9 @@ public interface BoardMapper {
 
 	public int deleteBoard(Long boardNo);
 
-	public List<BoardDTO> selectBoardList();
+	public List<BoardDTO> selectBoardList(BoardDTO params);
 
-	public int selectBoardTotalCount();
+	public int selectBoardTotalCount(BoardDTO params);
 }
 
 

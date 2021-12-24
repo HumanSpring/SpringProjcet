@@ -148,7 +148,7 @@ public class CommentMapperTests {
 			}
 		}
 	}
-
+	
 	/* selectCommentTotalCount 테스트 2021-12-13 완료 */
 	@Test
 	public void testBySelectCommentTotalCount() {

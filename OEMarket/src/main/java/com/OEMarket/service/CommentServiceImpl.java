@@ -66,6 +66,11 @@ public class CommentServiceImpl implements CommentService {
 		
 		if (commentTotalCount > 0) {
 			commentList = commentMapper.selectCommentList(params);
+			
+			// html에선 공백이 여러개라도 한개로만 인식하기 때문에 여러개의 공백을 처리하기 위한 반복문
+			for(int i = 0 ; i<commentList.size(); i++) {
+				commentList.get(i).setContent(commentList.get(i).getContent().replace(" ", "&nbsp;"));
+			}
 		}
 		return commentList;
 	}

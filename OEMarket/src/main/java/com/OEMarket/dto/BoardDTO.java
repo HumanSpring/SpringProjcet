@@ -36,4 +36,7 @@ public class BoardDTO extends CommonDTO {
 	
 	/* 공지사항여부 */
 	private String noticeYn;
+	
+	/* 유저정보 */
+	private MemberDTO memberDTO;
 }

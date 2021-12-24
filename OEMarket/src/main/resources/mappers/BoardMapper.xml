@@ -26,6 +26,34 @@
 		, "delete_yn" <!-- 삭제여부 -->
 		, "notice_yn" <!-- 공지사항여부 -->
 	</sql>
+	
+	<sql id="boardColumnsTwo">
+		b.*, 
+		m."nickname", 
+		m."member_role"
+	</sql>
+	
+	<resultMap type="BoardDTO" id="BoardMap">
+		<id column="board_no" property="boardNo"/>
+		<result column="user_no" property="userNo"/>
+		<result column="title" property="title"/>
+		<result column="category_no" property="categoryNo"/>
+		<result column="sales_status" property="salesStatus"/>
+		<result column="price" property="price"/>
+		<result column="content" property="content"/>
+		<result column="view_count" property="viewCount"/>
+		<result column="write_date" property="writeDate"/>
+		<result column="modify_date" property="modifyDate"/>
+		<result column="modifier" property="modifier"/>
+		<result column="delete_yn" property="deleteYn"/>
+		<result column="notice_yn" property="noticeYn"/>
+		
+		<association property="memberDTO" javaType="MemberDTO">
+			<id column="user_no" property="userNo"/>
+			<result column="nickname" property="nickname"/>
+			<result column="member_role" property="memberRole"/>
+		</association>
+	</resultMap>
 
 	<insert id="insertBoard" parameterType="BoardDTO">
 		INSERT INTO BOARD (
@@ -47,15 +75,19 @@
 			
 		)
 	</insert>
-	<select id="selectBoardDetail" parameterType="long" resultType="BoardDTO">
+	
+	<select id="selectBoardDetail" parameterType="long" resultMap="BoardMap">
 		SELECT
-			<include refid="boardColumns" />
+			<include refid="boardColumnsTwo" />
 		FROM
-			BOARD
+			"BOARD" b
+		LEFT JOIN
+			"MEMBER" m
+		ON b."user_no" = m."user_no"
 		WHERE
-			"delete_yn" = 'N'
+			b."delete_yn" = 'N'
 		AND
-			"board_no" = #{boardNo}
+			b."board_no" = #{boardNo}
 	</select>
 
 	<update id="updateBoard" parameterType="BoardDTO">
@@ -79,7 +111,7 @@
 			"board_no" = #{boardNo}
 	</update>
 
-	<select id="selectBoardList" parameterType="BoardDTO" resultType="BoardDTO">
+	<!-- <select id="selectBoardList" parameterType="Criteria" resultType="BoardDTO">
 		SELECT
 			<include refid="boardColumns" />
 		FROM
@@ -92,6 +124,24 @@
 			"board_no" DESC,
 			"write_date" DESC,
 			"view_count" DESC
+	</select> -->
+	
+	<select id="selectBoardList" parameterType="BoardDTO" resultType="BoardDTO">
+		SELECT * FROM (
+			SELECT 
+				ROWNUM NUM, B.*
+			FROM
+				"BOARD" B
+			WHERE
+				"delete_yn" ='N'
+			AND
+				"notice_yn" = 'N'
+			ORDER BY
+				"board_no" DESC, 
+				"write_date" DESC
+		)
+		WHERE
+			NUM BETWEEN #{paginationInfo.firstRecordIndex} AND #{paginationInfo.lastRecordIndex}
 	</select>
 
 	<select id="selectBoardTotalCount" parameterType="BoardDTO" resultType="int">
