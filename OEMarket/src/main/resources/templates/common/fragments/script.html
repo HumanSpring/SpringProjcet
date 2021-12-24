@@ -6,11 +6,11 @@
 <div th:fragment="sciprt">
 
 	<!-- JS (부트스트랩 포함)-->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js}"></script>
 	
-	<script src="scripts/customer.js"></script>
-	<script src="scripts/newScripts.js"></script>
-	<script src="scripts/newBootstrap.min.js"></script>
+	<script th:src="@{scripts/customer.js}"></script>
+	<script th:src="@{scripts/newScripts.js}"></script>
+	<script th:src="@{scripts/newBootstrap.min.js}"></script>
 
 	<script th:src="@{/scripts/jquery.min.js}"></script>
 	<script th:src="@{/plugin/bootstrap/js/bootstrap.min.js}"></script>

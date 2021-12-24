@@ -78,6 +78,7 @@
 		resultMap="BoardMap">
 		SELECT
 		<include refid="boardColumnsTwo" />
+		
 		FROM
 		"BOARD" b
 
