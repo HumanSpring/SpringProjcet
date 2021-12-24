@@ -1,6 +1,5 @@
 package com.OEMarket.controller;
 
-import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -24,7 +23,7 @@ public class AccountController {
 	@Autowired
 	private MemberService memberService;
 
-	@Inject
+	@Autowired
 	private MemberLoginService memberLoginService;
 
 	UserSha256 userSha256 = new UserSha256();

@@ -143,7 +143,7 @@
 				<div class="input-group margin-bottom-20">
 					<input type="text" id="content" class="form-control" placeholder="">
 					<div class="input-group-btn">
-						<button th:if="${session.loginMember != null}" type="button" class="btn waves-effect waves-light" th:onclick="insertComment([[${board.boardNo}]], [[${session.loginMember.id}]])">등록</button>
+						<button th:if="${session.loginMember != null}" type="button" class="btn waves-effect waves-light" th:onclick="insertComment([[${board.boardNo}]], [[${session.loginMember.userNo}]])">등록</button>
 						<button th:unless="${session.loginMember != null}" type="button" class="btn waves-effect waves-light" th:onclick="insertComment([[${board.boardNo}]], 0)">등록</button>
 					</div>
 					<!-- /.input-group-btn -->
@@ -196,15 +196,9 @@
 			if (isEmpty(response) == false) {
 				var commentsHtml = "";
 				$(response.commentList).each(function(commentNo, comment) {
-					if([[${session.loginMember.nickname}]] != null){
-						var nickname = [[${session.loginMember.nickname}]];	
-					} else{
-						var nickname = "";
-					}
 					
 					if(comment.secretYn == "N"){
 						if(comment.deleteYn == "N") {
-							if(nickname == comment.memberDTO.nickname){
 								commentsHtml += `
 									<li>
 										<span class="name">${comment.memberDTO.nickname}</span>
@@ -213,16 +207,6 @@
 										<button type="button" class="btn btn-xs btn-circle" onclick="openModal(${comment.commentNo}, '${comment.memberDTO.nickname}', '${comment.content}')">수정/삭제</button>
 									</li>
 								`;								
-							} else {
-								commentsHtml += `
-									<li>
-										<span class="name">${comment.memberDTO.nickname}</span>
-										<span class="desc">${comment.content}</span>
-										<span class="time">${moment(comment.writeDate).format('YYYY-MM-DD HH:mm:ss')}</span>
-									</li>
-								`;
-							}
-	
 						} else {
 							commentsHtml += `
 								<li>
