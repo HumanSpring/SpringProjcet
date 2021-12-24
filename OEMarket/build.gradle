@@ -50,3 +50,12 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
+
+bootJar {
+	mainClassName = 'com.OEMarket.OeMarketApplication'
+}
+
+bootRun {
+	String activeProfile = System.properties['spring.profiles.active']
+	systemProrerty "spring.profiles.active", activeProfile
+	}
