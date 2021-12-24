@@ -24,7 +24,7 @@ class MemberMapperTests {
 		memberDTO.setGender("M");
 		memberDTO.setPhone("01012345678");
 		memberDTO.setUserIcon("호날두사진");
-		memberDTO.setMember_role("USER");
+//		memberDTO.setMember_role("USER");
 
 		membermapper.insertMember(memberDTO);
 	}
