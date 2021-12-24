@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.OEMarket.dto.BoardDTO;
 import com.OEMarket.mapper.BoardMapper;
+import com.OEMarket.paging.PaginationInfo;
 
 /* 
  * 게시판
@@ -55,13 +56,18 @@ public class BoardServiceImpl implements BoardService {
 
 	// 삭제되지 않은 전체 게시글 조회
 	@Override
-	public List<BoardDTO> getBoardList() {
+	public List<BoardDTO> getBoardList(BoardDTO params) {
 		List<BoardDTO> boardList = Collections.emptyList();
 
-		int boardTotalCount = boardMapper.selectBoardTotalCount();
+		int boardTotalCount = boardMapper.selectBoardTotalCount(params);
+		
+		PaginationInfo paginationInfo = new PaginationInfo(params);
+		paginationInfo.setTotalRecordCount(boardTotalCount);
+		
+		params.setPaginationInfo(paginationInfo);
 
 		if (boardTotalCount > 0) {
-			boardList = boardMapper.selectBoardList();
+			boardList = boardMapper.selectBoardList(params);
 		}
 
 		return boardList;

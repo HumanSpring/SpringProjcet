@@ -38,7 +38,9 @@
 							<div class="text-center">
 								<!-- Product name-->
 								<div th:text="${boardNo}"></div>
-								<h5  class="fw-bolder"><a class="boardListCss" th:href="@{view.do( boardNo=${row.boardNo} )}" th:text="${row.title}"></a></h5>
+								<h5 class="fw-bolder">
+									<a class="boardListCss" th:href="@{view.do( boardNo=${row.boardNo} )}" th:text="${row.title}"></a>
+								</h5>
 								<!-- Product reviews-->
 								<div class="d-flex justify-content-center small text-warning mb-2">
 									<div class="bi-star-fill"></div>
@@ -52,17 +54,16 @@
 							</div>
 						</div>
 						<!-- Product actions-->
-						<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-						</div>
+						<div class="card-footer p-4 pt-0 border-top-0 bg-transparent"></div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-	
-	
-	
-	
+
+
+
+
 	<div class="table-responsive clearfix">
 		<table class="table table-hover">
 			<thead>
@@ -77,9 +78,7 @@
 			<tbody>
 				<tr th:if="${not #lists.isEmpty( boardList )}" th:each="row : ${boardList}">
 					<td th:text="${row.boardNo}"></td>
-					<td class="text-left">
-						<a th:href="@{view.do( boardNo=${row.boardNo} )}" th:text="${row.title}"></a>
-					</td>
+					<td class="text-left"><a th:href="@{view.do( boardNo=${row.boardNo} )}" th:text="${row.title}"></a></td>
 					<td th:text="${row.userNo}"></td>
 					<!-- <td th:text="${#temporals.format( row.writeDate, 'yyyy-MM-dd' )}"></td> -- 오류 해결 https://gigas-blog.tistory.com/132 -->
 					<td th:text="${#dates.format(row.writeDate, 'yyyy-MM-dd')}"></td>
@@ -94,40 +93,24 @@
 		<div class="btn_wrap text-right">
 			<a th:href="@{write.do}" class="btn btn-primary waves-effect waves-light">Write</a>
 		</div>
-		
+
 		<!-- 페이징 처리 -->
 		<th:block layout:fragment="paging">
-			<nav aria-label="Page navigation" class="text-center">
-				<ul class="pagination">
-					<li>
-						<a href="#" aria-label="Previous">
-							<span aria-hidden="true">&laquo;</span>
-						</a>
-					</li>
-					<li>
-						<a href="#">1</a>
-					</li>
-					<li>
-						<a href="#">2</a>
-					</li>
-					<li>
-						<a href="#">3</a>
-					</li>
-					<li>
-						<a href="#">4</a>
-					</li>
-					<li>
-						<a href="#">5</a>
-					</li>
-					<li>
-						<a href="#" aria-label="Next">
-							<span aria-hidden="true">&raquo;</span>
-						</a>
-					</li>
-				</ul>
-			</nav>
+				<nav th:replace="common/fragments/pagination :: pagination"></nav>
 		</th:block>
 	</div>
+</th:block>
+
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+
+		function movePage(uri, queryString) {
+			location.href = uri + queryString;
+		}
+
+		/*]]>*/
+	</script>
 </th:block>
 </body>
 </html>

@@ -2,6 +2,9 @@ package com.OEMarket.dto;
 
 import java.util.Date;
 
+import com.OEMarket.paging.Criteria;
+import com.OEMarket.paging.PaginationInfo;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +15,10 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class CommonDTO {
+public class CommonDTO extends Criteria {
+	
+	/* 페이징 정보 */
+	private PaginationInfo paginationInfo;
 	
 	/* 등록일 */
 	private Date writeDate;

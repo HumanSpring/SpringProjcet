@@ -79,7 +79,7 @@
 			"board_no" = #{boardNo}
 	</update>
 
-	<select id="selectBoardList" parameterType="BoardDTO" resultType="BoardDTO">
+	<!-- <select id="selectBoardList" parameterType="Criteria" resultType="BoardDTO">
 		SELECT
 			<include refid="boardColumns" />
 		FROM
@@ -92,6 +92,24 @@
 			"board_no" DESC,
 			"write_date" DESC,
 			"view_count" DESC
+	</select> -->
+	
+	<select id="selectBoardList" parameterType="BoardDTO" resultType="BoardDTO">
+		SELECT * FROM (
+			SELECT 
+				ROWNUM NUM, B.*
+			FROM
+				"BOARD" B
+			WHERE
+				"delete_yn" ='N'
+			AND
+				"notice_yn" = 'N'
+			ORDER BY
+				"board_no" DESC, 
+				"write_date" DESC
+		)
+		WHERE
+			NUM BETWEEN #{paginationInfo.firstRecordIndex} AND #{paginationInfo.lastRecordIndex}
 	</select>
 
 	<select id="selectBoardTotalCount" parameterType="BoardDTO" resultType="int">

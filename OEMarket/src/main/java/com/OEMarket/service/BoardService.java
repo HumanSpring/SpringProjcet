@@ -17,5 +17,5 @@ public interface BoardService {
 
 	public boolean deleteBoard(Long boardNo);
 
-	public List<BoardDTO> getBoardList();
+	public List<BoardDTO> getBoardList(BoardDTO params);
 }

@@ -7,47 +7,40 @@ import lombok.Setter;
 @Setter
 public class PaginationInfo {
 
-	/* 페이징 계산에 필요한 파라미터들이 담긴 클래스 */
+	/** 페이징 계산에 필요한 파라미터들이 담긴 클래스 */
 	private Criteria criteria;
 
-	/* 전체 데이터 개수 */
+	/** 전체 데이터 개수 */
 	private int totalRecordCount;
 
-	/* 전체 페이지 개수 */
+	/** 전체 페이지 개수 */
 	private int totalPageCount;
 
-	/* 페이지 리스트이 첫 페이지 번호 */
+	/** 페이지 리스트의 첫 페이지 번호 */
 	private int firstPage;
 
-	/* 페이지 리스트의 마지막 페이지 번호 */
+	/** 페이지 리스트의 마지막 페이지 번호 */
 	private int lastPage;
 
-	/* SQL의 조건절에 사용되는 첫 RNUM */
+	/** SQL의 조건절에 사용되는 첫 RNUM */
 	private int firstRecordIndex;
 
-	/* SQL의 조건절에서 사용되는 마지막 RNUM */
+	/** SQL의 조건절에 사용되는 마지막 RNUM */
 	private int lastRecordIndex;
-	
-	/* 이전 페이지 존재 여부 */
+
+	/** 이전 페이지 존재 여부 */
 	private boolean hasPreviousPage;
 
-	/* 다음 페이지 존재 여부 */
+	/** 다음 페이지 존재 여부 */
 	private boolean hasNextPage;
 
-	/* 잘못된 값(조건)이 들어왔을 때 각각 조건을 통해 기본값 지정 */
 	public PaginationInfo(Criteria criteria) {
-
-		/* currentPageNo가 없는 페이지 일 때 */
 		if (criteria.getCurrentPageNo() < 1) {
 			criteria.setCurrentPageNo(1);
 		}
-
-		/* 페이지당 출력 데이터가 없거나 너무 많을 때 */
 		if (criteria.getRecordsPerPage() < 1 || criteria.getRecordsPerPage() > 100) {
 			criteria.setRecordsPerPage(10);
 		}
-
-		/* 화면 하단에 출력할 페이지 사이즈가 너무 적거나 너무 많을 때 */
 		if (criteria.getPageSize() < 5 || criteria.getPageSize() > 20) {
 			criteria.setPageSize(10);
 		}
@@ -55,7 +48,6 @@ public class PaginationInfo {
 		this.criteria = criteria;
 	}
 
-	/* 전체 데이터 개수를 calculation 메소드를 이용해 페이지 번호를 계산함 */
 	public void setTotalRecordCount(int totalRecordCount) {
 		this.totalRecordCount = totalRecordCount;
 
@@ -64,7 +56,7 @@ public class PaginationInfo {
 		}
 	}
 
-	public void calculation() {
+	private void calculation() {
 
 		/* 전체 페이지 수 (현재 페이지 번호가 전체 페이지 수보다 크면 현재 페이지 번호에 전체 페이지 수를 저장) */
 		totalPageCount = ((totalRecordCount - 1) / criteria.getRecordsPerPage()) + 1;
@@ -73,7 +65,6 @@ public class PaginationInfo {
 		}
 
 		/* 페이지 리스트의 첫 페이지 번호 */
-		/* 예) 현재 페이지 번호 = 15, 화면 하단에 출력할 페이지 개수 = 10, firstPage = 11 */
 		firstPage = ((criteria.getCurrentPageNo() - 1) / criteria.getPageSize()) * criteria.getPageSize() + 1;
 
 		/* 페이지 리스트의 마지막 페이지 번호 (마지막 페이지가 전체 페이지 수보다 크면 마지막 페이지에 전체 페이지 수를 저장) */
