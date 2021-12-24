@@ -39,9 +39,11 @@ public class AccountController {
 	@PostMapping(value = "/account/join.do")
 	public String JoinAction(MemberDTO memberDTO) {
 
+		System.out.println("회원가입 페이지에서 입력받은 패스워드 " + memberDTO.getPassword());
 		// 비밀번호 암호화
 		String encryPassword = userSha256.encrypt(memberDTO.getPassword());
 		memberDTO.setPassword(encryPassword);
+		System.out.println("암호화 된후 변환된 패스워드 " + memberDTO.getPassword());
 
 		memberService.registerMember(memberDTO);
 		return "redirect:/";
@@ -58,8 +60,13 @@ public class AccountController {
 	public String loginCheck(MemberDTO memberDTO, HttpServletRequest req) {
 		HttpSession session = req.getSession();
 
+		// 로그인 화면에서 입력받은 비밀번호 암호화해서 DB와 확인
+		System.out.println("로그인 화면에서 입력받은 비밀번호 " + memberDTO.getPassword());
+
 		String encryPassword = userSha256.encrypt(memberDTO.getPassword());
 		memberDTO.setPassword(encryPassword);
+
+		System.out.println(memberDTO.getPassword());
 
 		MemberDTO login = memberLoginService.loginCheck(memberDTO);
 
