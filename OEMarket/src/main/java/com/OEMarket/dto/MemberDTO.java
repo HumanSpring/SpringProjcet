@@ -48,6 +48,6 @@ public class MemberDTO {
 	private String signout_date;
 
 	/* 회원 구분 */
-	private String member_role;
+	private String memberRole;
 
 }

@@ -6,11 +6,11 @@
 <div th:fragment="sciprt">
 
 	<!-- JS (부트스트랩 포함)-->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-	<!-- Core theme JS-->
-	<script th:src="@{/scripts/customer.js}"></script>
-   	<script th:src="@{/scripts/newScripts.js}"></script>
-   	<script th:src="@{/scripts/newBootstrap.min.js}"></script>
+	<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js}"></script>
+	
+	<script th:src="@{scripts/customer.js}"></script>
+	<script th:src="@{scripts/newScripts.js}"></script>
+	<script th:src="@{scripts/newBootstrap.min.js}"></script>
 
 	<script th:src="@{/scripts/jquery.min.js}"></script>
 	<script th:src="@{/plugin/bootstrap/js/bootstrap.min.js}"></script>
@@ -18,7 +18,10 @@
 
 	<script th:src="@{/scripts/main.js}"></script>
 	<script th:src="@{/scripts/common.js}"></script>
-	<script th:src="@{/plugin/common/moment.js}"></script>
+	
+	<!-- sweet alert -->
+	<script th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@10}"></script>
+
 
 </div>
 </html>
