@@ -44,7 +44,7 @@
 		<result column="write_date" property="writeDate"/>
 		
 		<association javaType="MemberDTO" property="memberDTO">
-			<id column="user_no" property="id"/>
+			<id column="user_no" property="userNo"/>
 			<result column="email" property="email"/>
 			<result column="name" property="name"/>
 			<result column="nickname" property="nickname"/>
