@@ -1,5 +1,10 @@
 package com.OEMarket.dto;
 
+import java.util.Map;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,4 +19,6 @@ public class UserKeyWordDTO extends CommonDTO {
 	private Long userNo;
 	
 	/* 키워드 + 회원번호 (PK) */
+	
+
 }
