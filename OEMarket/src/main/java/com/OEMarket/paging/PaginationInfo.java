@@ -9,7 +9,7 @@ public class PaginationInfo {
 
 	/** 페이징 계산에 필요한 파라미터들이 담긴 클래스 */
 	private Criteria criteria;
-
+	
 	/** 전체 데이터 개수 */
 	private int totalRecordCount;
 
@@ -74,7 +74,7 @@ public class PaginationInfo {
 		}
 
 		/* SQL의 조건절에 사용되는 첫 RNUM */
-		firstRecordIndex = (criteria.getCurrentPageNo() - 1) * criteria.getRecordsPerPage();
+		firstRecordIndex = (criteria.getCurrentPageNo() - 1) * criteria.getRecordsPerPage() + 1;
 
 		/* SQL의 조건절에 사용되는 마지막 RNUM */
 		lastRecordIndex = criteria.getCurrentPageNo() * criteria.getRecordsPerPage();

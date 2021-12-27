@@ -6,7 +6,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class BoardDTO extends CommonDTO {
-
+	
+	/* 페이징 처리를 위한 번호 */
+	private int rownum;
+	
 	/* 게시글 번호 */
 	private Long boardNo;
 	

@@ -22,6 +22,9 @@
 					<div class="modal-body">
 						<form>
 							<div class="form-group">
+								<label for="modalWriter" class="col-form-label">작성자</label> <input type="text" id="modalWriter" class="form-control" placeholder="작성자를 입력해주세요." readonly />
+							</div>
+							<div class="form-group">
 								<label for="modalContent" class="col-form-label">내용</label>
 								<textarea id="modalContent" class="form-control" placeholder="내용을 입력해 주세요."></textarea>
 							</div>
@@ -155,11 +158,32 @@
 				<div class="input-group margin-bottom-20">
 					<input type="text" id="content" class="form-control" />
 					<div class="input-group-btn">
-						<button th:if="${session.loginMember != null}" type="button" class="btn waves-effect waves-light" th:onclick="insertComment([[ ${board.boardNo} ]], [[ ${session.loginMember.userNo} ]])">등록</button>
-						<button th:unless="${session.loginMember != null}" type="button" class="btn waves-effect waves-light" th:onclick="insertComment([[ ${board.boardNo} ]], 0)">등록</button>
+						<button th:if="${session.loginMember != null}" type="button" class="btn waves-effect waves-light" th:onclick="insertComment([[ ${board.boardNo} ]], [[ ${session.loginMember.userNo} ]])">
+							<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+							  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+							  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+							</svg>
+						</button>
+						<button th:unless="${session.loginMember != null}" type="button" class="btn waves-effect waves-light" th:onclick="insertComment([[ ${board.boardNo} ]], 0)">
+							<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+							  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+							  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+							</svg>
+						</button>
 					</div>
 				</div>
-				<ul class="notice-list"></ul>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th scope="col">작성자</th>
+							<th scope="col">내용</th>
+							<th scope="col">작성일</th>
+							<th scope="col"></th>
+						</tr>
+					</thead>
+					<tbody class="comment-table">
+					</tbody>
+				</table>
 			</form>
 		</div>
 		<!-- /.card-content -->
@@ -206,19 +230,35 @@
 			$.get(uri, function(response) {
 				if (isEmpty(response) == false) {
 					var commentsHtml = "";
-
+					if([[${session.loginMember}]] == null) {
+						var nickname = null;
+					} else {
+						var nickname = [[${session.loginMember.nickname}]]
+					}
 					$(response.commentList).each(function(commentNo, comment) {
-						commentsHtml += `
-							<li>
-								<span class="name">${comment.memberDTO.nickname}</span>
-								<span class="desc">${comment.content}</span>
-								<span class="time">${moment(comment.writeDate).format('YYYY-MM-DD HH:mm:ss')}</span>
-								<button type="button" class="btn btn-xs btn-circle" onclick="openModal(${comment.commentNo}, '${comment.content}' )" class="btn btn-xs btn-circle">수정/삭제</button>
-							</li>
-						`;
+						if(nickname == comment.memberDTO.nickname) {
+							commentsHtml += `
+								<tr>
+									<th scope="row">${comment.memberDTO.nickname}</th>
+									<td>${comment.content}</td>
+									<td>${moment(comment.writeDate).format('YYYY-MM-DD HH:mm:ss')}</td>
+									<td><button type="button" class="btn btn-xs btn-circle" onclick="openModal(${comment.commentNo}, '${comment.memberDTO.nickname}', '${comment.content}' )" class="btn btn-xs btn-circle">수정/삭제</button></td>
+								</tr>
+							`;	
+						} else {
+							commentsHtml += `
+								<tr>
+									<th scope="row">${comment.memberDTO.nickname}</th>
+									<td>${comment.content}</td>
+									<td>${moment(comment.writeDate).format('YYYY-MM-DD HH:mm:ss')}</td>
+									<td></td>
+								</tr>
+							`;
+						}
+						
 					});
 
-					$(".notice-list").html(commentsHtml);
+					$(".comment-table").html(commentsHtml);
 				}
 			}, "json");
 		}
@@ -265,9 +305,10 @@
 		}
 		
 		/* 모달창 열기 */
-		function openModal(commentNo, content){ 
+		function openModal(commentNo, nickname, content){ 
 			$("#commentModal").modal("toggle");
 			
+			document.getElementById("modalWriter").value = nickname;
 			document.getElementById("modalContent").value = content;
 			
 			document.getElementById("btnCommentUpdate").setAttribute("onclick", "updateComment("+commentNo+")");
