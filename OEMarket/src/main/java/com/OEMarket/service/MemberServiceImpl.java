@@ -26,4 +26,16 @@ public class MemberServiceImpl implements MemberService {
 		return (queryResult == 1) ? true : false;
 	}
 
+	@Override
+	public int emailCheck(String email) {
+		int result = memberMapper.emailCheck(email);
+		return result;
+	}
+
+	@Override
+	public int nickCheck(String nickname) {
+		int result = memberMapper.nickCheck(nickname);
+		return result;
+	}
+
 }
