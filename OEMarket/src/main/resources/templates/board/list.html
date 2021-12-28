@@ -81,27 +81,22 @@
 
 		<!-- 페이징 처리 시작 -->
 		<th:block layout:fragment="paging">
-			<nav aria-label="Page navigation example">
-				<ul class="pagination justify-content-center">
-					<li class="page-item disabled">
-						<a class="page-link">이전</a>
-					</li>
-					<li class="page-item">
-						<a class="page-link" href="#">1</a>
-					</li>
-					<li class="page-item">
-						<a class="page-link" href="#">2</a>
-					</li>
-					<li class="page-item">
-						<a class="page-link" href="#">3</a>
-					</li>
-					<li class="page-item">
-						<a class="page-link" href="#">다음</a>
-					</li>
-				</ul>
+			<nav th:replace="common/fragments/pagination :: pagination" aria-label="Page navigation example">
 			</nav>
 		</th:block>
 		<!-- 페이징 처리 끝 -->
+	</th:block>
+	
+	<th:block layout:fragment="add-script">
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+
+			function movePage(uri, queryString) {
+				location.href = uri + queryString;
+			}
+
+			/*]]>*/
+		</script>
 	</th:block>
 </body>
 </html>
