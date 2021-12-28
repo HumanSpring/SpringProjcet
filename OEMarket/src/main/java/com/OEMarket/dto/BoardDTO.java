@@ -42,4 +42,9 @@ public class BoardDTO extends CommonDTO {
 	
 	/* 유저정보 */
 	private MemberDTO memberDTO;
+	
+	/* 첨부파일정보 */
+	private AttachDTO attachDTO;
+	
+	private String saveName;
 }
