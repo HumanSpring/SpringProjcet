@@ -1,13 +1,13 @@
-package com.OEMarket.controller;
+package com.OEMarket.Controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class MypageController {
-		// 마이페이지 메인
-		@GetMapping(value ="/mypage/mypageMain.do")
-		public String mainControll() {
-					return "mypage/mypageMain";
-		}
+	// 마이페이지 메인
+	@GetMapping(value = "/mypage/mypageMain.do")
+	public String mainControll() {
+		return "mypage/mypageMain";
+	}
 }

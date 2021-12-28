@@ -1,4 +1,4 @@
-package com.OEMarket.controller;
+package com.OEMarket.Controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
