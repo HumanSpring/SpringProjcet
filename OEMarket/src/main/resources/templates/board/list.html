@@ -20,8 +20,6 @@
 </th:block>  -->
 
 <th:block layout:fragment="content">
-
-
 	<section class="py-5">
 		<div class="container px-4 px-lg-5 mt-5">
 			<h2>최근 올라온 중고 상품</h2>
@@ -61,8 +59,8 @@
 		</div>
 	</section>
 
-	<div class="btn_wrap text-right">
-		<a th:href="@{write.do}" class="btn btn-primary waves-effect waves-light">Write</a>
+	<div class="d-grid gap-2 d-lg-flex justify-content-lg-end" th:unless="${session.loginMember == null}">
+		<a th:href="@{write.do}" class="btn btn-success waves-effect waves-right">글쓰기</a>
 	</div>
 
 	<!-- 페이징 처리 -->
